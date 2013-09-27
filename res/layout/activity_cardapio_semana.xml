@@ -1,0 +1,53 @@
+<?xml version ="1.0" encoding ="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="true" >
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="Dia da Semana       "
+            android:textSize="20sp"
+        	android:textStyle="bold" 
+            android:layout_gravity="left"/>
+
+        <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right" />
+        
+        
+        
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Almoço \nFrango seco\nArroz sem sal\nFeijao Branco\nSalada\nsuco de caju" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jantar\nFrango cozido\nArroz sem sal\nSopa dos restos do almoço \nFruta\nsuco de caju" />
+
+    </TableRow>
+    
+    
+
+    <TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="\n\n\nCafé da Manhã \nCafé\nLeite\nCuzcuz seco\nsuco de caju\nPão dormido" />
+
+    </TableRow>
+   
+</TableLayout>

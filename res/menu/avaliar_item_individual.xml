@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuCardapioSemana"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Cardápio da Semana"/>
+    
+     <item
+        android:id="@+id/menuAvaliarPrato"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Avaliar Prato"/>
+     
+      <item
+        android:id="@+id/menucomentario"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Cometários"/>
+      
+       <item
+        android:id="@+id/menuVisualizarAvPrato"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Percentual das Avaliações do Prato"/>
+     
+      <item
+        android:id="@+id/menuVisualizarAvItem"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Percentual das Avaliações de cada Item"/>
+
+</menu>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/name_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="Qual seu nível de satisfação com a refeição de hoje?" />
+  
+   
+    <TextView
+        android:id="@+id/data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Almoço 16/09/13\n" />
+    
+    <TextView
+        android:id="@+id/cardapio_do_dia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="	Feijão Branco \n	Farinha D'água \n	Frango cozido \n	Arroz\n	Salada de abóbora\n	Suco de caju\n" />
+
+    <RadioButton
+        android:id="@+id/checkbox_meat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/gostei"
+         android:text=" gostei "
+        android:onClick="onRadioButtonClicked" />
+
+    <RadioButton
+        android:id="@+id/checkbox_indiferente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/indiferente"
+         android:text=" indiferente "
+        android:onClick="onRadioButtonClicked" />
+
+    <RadioButton
+        android:id="@+id/checkbox_cheese"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/desgostei"
+        android:text=" desgostei "
+        android:onClick="onRadioButtonClicked" />
+    
+    <TextView
+        android:id="@+id/name_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="\nO cardápio do dia foi cumprido?\n" />
+    
+    <RadioButton
+        android:id="@+id/checkbox_sim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:text=" Sim "
+        android:onClick="onRadioButtonClicked" />
+
+    <RadioButton
+        android:id="@+id/checkbox_nao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Não "
+        android:onClick="onRadioButtonClicked" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Votar" />
+
+</LinearLayout>

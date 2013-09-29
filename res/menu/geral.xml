@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuVerCardapioSemana"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_item_ver_cardapio_semana"/>
+    <item
+        android:id="@+id/menuAvaliarCardapio"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_item_avaliar_cardapio"/>
+    <item
+        android:id="@+id/menuVerAvaliacaoPrato"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_item_ver_avaliacoes"/>
+    <item
+        android:id="@+id/menuComentario"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_item_comentarios"/>
+
+</menu>

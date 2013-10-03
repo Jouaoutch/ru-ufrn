@@ -5,15 +5,35 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button_cardapio"
+        style="@style/AppBaseTheme"
         android:layout_width="317dp"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:gravity="center"
+        android:text="@string/button_cardapio" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_avaliacoes"
+        style="@style/AppBaseTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:gravity="center"
+        android:text="@string/button_avaliacoes" />
+
+    <Button
+        android:id="@+id/button_estatistica"
+        style="@style/AppBaseTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/button_estatisticas" />
+
+    <Button
+        android:id="@+id/button_comentarios"
+        style="@style/AppBaseTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/button_comentarios" />
 
 </LinearLayout>

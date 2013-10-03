@@ -37,5 +37,9 @@
     <string name="menu_item_comentarios">Comentários</string>
     <string name="title_activity_tela_inicial">TelaInicial</string>
     <string name="menu_item_ver_cardapio_dia">Ver Cardápio do Dia</string>
+    <string name="button_cardapio">Cardápio</string>
+    <string name="button_avaliacoes">Avaliações</string>
+    <string name="button_estatisticas">Estatísticas</string>
+    <string name="button_comentarios">Comentários</string>
 
 </resources>

@@ -32,12 +32,14 @@ public final class R {
     }
     public static final class id {
         public static final int TableLayout1=0x7f090009;
-        public static final int action_settings=0x7f090042;
-        public static final int avaliacoes=0x7f09003f;
+        public static final int action_settings=0x7f090044;
+        public static final int avaliacoes=0x7f090041;
         public static final int btEntrar=0x7f090032;
-        public static final int button1=0x7f090008;
-        public static final int button2=0x7f090033;
-        public static final int cardapio=0x7f09003c;
+        public static final int button_avaliacoes=0x7f090033;
+        public static final int button_cardapio=0x7f090008;
+        public static final int button_comentarios=0x7f090035;
+        public static final int button_estatistica=0x7f090034;
+        public static final int cardapio=0x7f09003e;
         public static final int cardapio_do_dia=0x7f090002;
         public static final int checkbox_cheese=0x7f090005;
         public static final int checkbox_indiferente=0x7f090004;
@@ -70,18 +72,18 @@ public final class R {
         public static final int item6=0x7f090024;
         public static final int item7=0x7f09002a;
         public static final int login=0x7f09002f;
-        public static final int menuAvPrato=0x7f09003a;
-        public static final int menuAvaliarCardapio=0x7f090040;
-        public static final int menuAvaliarItem=0x7f090035;
-        public static final int menuAvaliarPrato=0x7f090039;
-        public static final int menuCardapioSemana=0x7f090034;
-        public static final int menuComentario=0x7f09003b;
-        public static final int menuVerAvaliacaoPrato=0x7f090041;
-        public static final int menuVerCardapioDia=0x7f09003e;
-        public static final int menuVerCardapioSemana=0x7f09003d;
-        public static final int menuVisualizarAvItem=0x7f090038;
-        public static final int menuVisualizarAvPrato=0x7f090037;
-        public static final int menucomentario=0x7f090036;
+        public static final int menuAvPrato=0x7f09003c;
+        public static final int menuAvaliarCardapio=0x7f090042;
+        public static final int menuAvaliarItem=0x7f090037;
+        public static final int menuAvaliarPrato=0x7f09003b;
+        public static final int menuCardapioSemana=0x7f090036;
+        public static final int menuComentario=0x7f09003d;
+        public static final int menuVerAvaliacaoPrato=0x7f090043;
+        public static final int menuVerCardapioDia=0x7f090040;
+        public static final int menuVerCardapioSemana=0x7f09003f;
+        public static final int menuVisualizarAvItem=0x7f09003a;
+        public static final int menuVisualizarAvPrato=0x7f090039;
+        public static final int menucomentario=0x7f090038;
         public static final int name_label=0x7f090000;
         public static final int senha=0x7f090031;
         public static final int spinner=0x7f09002e;
@@ -125,6 +127,10 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int button_avaliacoes=0x7f05001a;
+        public static final int button_cardapio=0x7f050019;
+        public static final int button_comentarios=0x7f05001c;
+        public static final int button_estatisticas=0x7f05001b;
         public static final int hello_world=0x7f050002;
         public static final int menu_item_avaliar_cardapio=0x7f050014;
         public static final int menu_item_comentarios=0x7f050016;

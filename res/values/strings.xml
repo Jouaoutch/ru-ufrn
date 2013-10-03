@@ -1,103 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name" >RU_UFRN
-    </string>
+    <string name="app_name">RU_UFRN</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_estatisticas">Estatisticas</string>
+    <string name="title_activity_check_box">CheckBox</string>
+    <string name="title_activity_avaliar_item_individual">AvaliarItemIndividual</string>
+    <string name="title_activity_estatisticas_item_individual">EstatisticasItemIndividual</string>
+    <string name="title_activity_testes">Testes</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_comentario">Comentario</string>
+    <string name="title_activity_avaliar_cardapio">AvaliarCardapio</string>
+    <string name="title_activity_avaliar">Avaliar</string>
+    <string name="title_activity_visualizar_cardapio">VisualizarCardapio</string>
+    <string name="title_activity_cardapio_semana">CardapioSemana</string>
 
-    <string name="action_settings" >Settings
-    </string>
-
-    <string name="hello_world" >Hello world!
-    </string>
-
-    <string name="title_activity_login" >Login
-    </string>
-
-    <string name="title_activity_estatisticas" >Estatisticas
-    </string>
-
-    <string name="title_activity_check_box" >CheckBox
-    </string>
-
-    <string name="title_activity_avaliar_item_individual" >AvaliarItemIndividual
-    </string>
-
-    <string name="title_activity_estatisticas_item_individual" >EstatisticasItemIndividual
-    </string>
-
-    <string name="title_activity_testes" >Testes
-    </string>
-
-    <string name="title_section1" >Section 1
-    </string>
-
-    <string name="title_section2" >Section 2
-    </string>
-
-    <string name="title_section3" >Section 3
-    </string>
-
-    <string name="title_activity_comentario" >Comentario
-    </string>
-
-    <string name="title_activity_avaliar_cardapio" >AvaliarCardapio
-    </string>
-
-    <string name="title_activity_avaliar" >Avaliar
-    </string>
-
-    <string name="title_activity_visualizar_cardapio" >VisualizarCardapio
-    </string>
-
-    <string name="title_activity_cardapio_semana" >CardapioSemana
-    </string>
-
-    <string-array name="dias_semana" >
-
-        <item>
-Segunda
-        </item>
-
-        <item>
-Terça
-        </item>
-
-        <item>
-Quarta
-        </item>
-
-        <item>
-Quinta
-        </item>
-
-        <item>
-Sexta
-        </item>
-
-        <item>
-Sábado
-        </item>
-
-        <item>
-Domingo
-        </item>
+    <string-array name="dias_semana">
+        <item>Segunda</item>
+        <item>Terça</item>
+        <item>Quarta</item>
+        <item>Quinta</item>
+        <item>Sexta</item>
+        <item>Sábado</item>
+        <item>Domingo</item>
     </string-array>
 
-    <string name="title_activity_teste" >Teste
-    </string>
-
-    <string name="title_activity_estatisticas_cardapio" >EstatisticasCardapio
-    </string>
-
-    <string name="menu_item_ver_cardapio_semana" >Ver Cardápio da Semana
-    </string>
-
-    <string name="menu_item_avaliar_cardapio" >Avaliar Cardápio
-    </string>
-
-    <string name="menu_item_ver_avaliacoes" >Ver Avaliações do Cardápio
-    </string>
-
-    <string name="menu_item_comentarios" >Comentários
-    </string>
+    <string name="title_activity_teste">Teste</string>
+    <string name="title_activity_estatisticas_cardapio">EstatisticasCardapio</string>
+    <string name="menu_item_ver_cardapio_semana">Ver Cardápio da Semana</string>
+    <string name="menu_item_avaliar_cardapio">Avaliar Cardápio</string>
+    <string name="menu_item_ver_avaliacoes">Ver Avaliações do Cardápio</string>
+    <string name="menu_item_comentarios">Comentários</string>
+    <string name="title_activity_tela_inicial">TelaInicial</string>
+    <string name="menu_item_ver_cardapio_dia">Ver Cardápio do Dia</string>
 
 </resources>

@@ -13,15 +13,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name="br.ufrn.ru_ufrn.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        
         <activity
             android:name="br.ufrn.ru_ufrn.Login"
             android:label="@string/title_activity_login" >
@@ -69,6 +61,15 @@
         <activity
             android:name="br.ufrn.ru_ufrn.EstatisticasCardapio"
             android:label="@string/title_activity_estatisticas_cardapio" >
+        </activity>
+        <activity
+            android:name="br.ufrn.ru_ufrn.TelaInicial"
+            android:label="@string/title_activity_tela_inicial" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

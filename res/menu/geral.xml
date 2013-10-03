@@ -1,10 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
+    <group android:id="@+id/cardapio">
+        <item
         android:id="@+id/menuVerCardapioSemana"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/menu_item_ver_cardapio_semana"/>
+        <item android:id="@+id/menuVerCardapioDia" android:title="@string/menu_item_ver_cardapio_dia"></item>
+    
+    </group>
+    <group android:id="@+id/avaliacoes">
     <item
         android:id="@+id/menuAvaliarCardapio"
         android:orderInCategory="100"
@@ -14,11 +19,15 @@
         android:id="@+id/menuVerAvaliacaoPrato"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/menu_item_ver_avaliacoes"/>
+        android:title="@string/menu_item_ver_avaliacoes"/>    
+        
+    </group>
     <item
         android:id="@+id/menuComentario"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/menu_item_comentarios"/>
+    
+    
 
 </menu>

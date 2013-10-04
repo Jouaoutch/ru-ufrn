@@ -28,6 +28,16 @@
         <item>Sábado</item>
         <item>Domingo</item>
     </string-array>
+    
+    <string-array name="refeicoes">
+        <item>Café da manhã</item>
+        <item>Almoço: Carnívoro</item>
+        <item>Almoço: Vegetariano</item>
+        <item>Janta: Carnívoro</item>
+        <item>Janta: Vegetariano</item>
+    </string-array>
+    
+    
 
     <string name="title_activity_teste">Teste</string>
     <string name="title_activity_estatisticas_cardapio">EstatisticasCardapio</string>
@@ -41,5 +51,7 @@
     <string name="button_avaliacoes">Avaliações</string>
     <string name="button_estatisticas">Estatísticas</string>
     <string name="button_comentarios">Comentários</string>
+    <string name="button_mudar_data">Mudar a Data</string>
+    <string name="title_activity_cardapio">Cardapio</string>
 
 </resources>

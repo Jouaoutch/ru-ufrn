@@ -10,6 +10,7 @@ package br.ufrn.ru_ufrn;
 public final class R {
     public static final class array {
         public static final int dias_semana=0x7f060000;
+        public static final int refeicoes=0x7f060001;
     }
     public static final class attr {
     }
@@ -32,14 +33,15 @@ public final class R {
     }
     public static final class id {
         public static final int TableLayout1=0x7f090009;
-        public static final int action_settings=0x7f090044;
-        public static final int avaliacoes=0x7f090041;
-        public static final int btEntrar=0x7f090032;
-        public static final int button_avaliacoes=0x7f090033;
+        public static final int action_settings=0x7f090040;
+        public static final int avaliacoes=0x7f090046;
+        public static final int btEntrar=0x7f090036;
+        public static final int button_avaliacoes=0x7f090037;
         public static final int button_cardapio=0x7f090008;
-        public static final int button_comentarios=0x7f090035;
-        public static final int button_estatistica=0x7f090034;
-        public static final int cardapio=0x7f09003e;
+        public static final int button_comentarios=0x7f090039;
+        public static final int button_estatistica=0x7f090038;
+        public static final int button_mudar_data=0x7f09002e;
+        public static final int cardapio=0x7f090043;
         public static final int cardapio_do_dia=0x7f090002;
         public static final int checkbox_cheese=0x7f090005;
         public static final int checkbox_indiferente=0x7f090004;
@@ -71,22 +73,24 @@ public final class R {
         public static final int item5=0x7f09001f;
         public static final int item6=0x7f090024;
         public static final int item7=0x7f09002a;
-        public static final int login=0x7f09002f;
-        public static final int menuAvPrato=0x7f09003c;
-        public static final int menuAvaliarCardapio=0x7f090042;
-        public static final int menuAvaliarItem=0x7f090037;
-        public static final int menuAvaliarPrato=0x7f09003b;
-        public static final int menuCardapioSemana=0x7f090036;
-        public static final int menuComentario=0x7f09003d;
-        public static final int menuVerAvaliacaoPrato=0x7f090043;
-        public static final int menuVerCardapioDia=0x7f090040;
-        public static final int menuVerCardapioSemana=0x7f09003f;
-        public static final int menuVisualizarAvItem=0x7f09003a;
-        public static final int menuVisualizarAvPrato=0x7f090039;
-        public static final int menucomentario=0x7f090038;
+        public static final int listView1=0x7f090031;
+        public static final int login=0x7f090033;
+        public static final int menuAvPrato=0x7f090041;
+        public static final int menuAvaliarCardapio=0x7f090047;
+        public static final int menuAvaliarItem=0x7f09003b;
+        public static final int menuAvaliarPrato=0x7f09003f;
+        public static final int menuCardapioSemana=0x7f09003a;
+        public static final int menuComentario=0x7f090042;
+        public static final int menuVerAvaliacaoPrato=0x7f090048;
+        public static final int menuVerCardapioDia=0x7f090045;
+        public static final int menuVerCardapioSemana=0x7f090044;
+        public static final int menuVisualizarAvItem=0x7f09003e;
+        public static final int menuVisualizarAvPrato=0x7f09003d;
+        public static final int menucomentario=0x7f09003c;
         public static final int name_label=0x7f090000;
-        public static final int senha=0x7f090031;
-        public static final int spinner=0x7f09002e;
+        public static final int senha=0x7f090035;
+        public static final int spinner=0x7f090032;
+        public static final int spinner_refeicoes=0x7f090030;
         public static final int tableRow1=0x7f09000a;
         public static final int tableRow10=0x7f090025;
         public static final int tableRow11=0x7f090029;
@@ -99,30 +103,33 @@ public final class R {
         public static final int tableRow7=0x7f09001a;
         public static final int tableRow8=0x7f09001e;
         public static final int tableRow9=0x7f090020;
-        public static final int text2=0x7f090030;
+        public static final int text2=0x7f090034;
+        public static final int textView_data_atual=0x7f09002f;
     }
     public static final class layout {
         public static final int activity_avaliar=0x7f030000;
         public static final int activity_avaliar_item_individual=0x7f030001;
-        public static final int activity_cardapio_semana=0x7f030002;
-        public static final int activity_comentario=0x7f030003;
-        public static final int activity_estatisticas_cardapio=0x7f030004;
-        public static final int activity_estatisticas_item_individual=0x7f030005;
-        public static final int activity_login=0x7f030006;
-        public static final int activity_main=0x7f030007;
-        public static final int activity_tela_inicial=0x7f030008;
+        public static final int activity_cardapio=0x7f030002;
+        public static final int activity_cardapio_semana=0x7f030003;
+        public static final int activity_comentario=0x7f030004;
+        public static final int activity_estatisticas_cardapio=0x7f030005;
+        public static final int activity_estatisticas_item_individual=0x7f030006;
+        public static final int activity_login=0x7f030007;
+        public static final int activity_main=0x7f030008;
+        public static final int activity_tela_inicial=0x7f030009;
     }
     public static final class menu {
         public static final int avaliar=0x7f080000;
         public static final int avaliar_item_individual=0x7f080001;
-        public static final int cardapio_semana=0x7f080002;
-        public static final int comentario=0x7f080003;
-        public static final int estatisticas_cardapio=0x7f080004;
-        public static final int estatisticas_item_individual=0x7f080005;
-        public static final int geral=0x7f080006;
-        public static final int login=0x7f080007;
-        public static final int main=0x7f080008;
-        public static final int tela_inicial=0x7f080009;
+        public static final int cardapio=0x7f080002;
+        public static final int cardapio_semana=0x7f080003;
+        public static final int comentario=0x7f080004;
+        public static final int estatisticas_cardapio=0x7f080005;
+        public static final int estatisticas_item_individual=0x7f080006;
+        public static final int geral=0x7f080007;
+        public static final int login=0x7f080008;
+        public static final int main=0x7f080009;
+        public static final int tela_inicial=0x7f08000a;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -131,6 +138,7 @@ public final class R {
         public static final int button_cardapio=0x7f050019;
         public static final int button_comentarios=0x7f05001c;
         public static final int button_estatisticas=0x7f05001b;
+        public static final int button_mudar_data=0x7f05001d;
         public static final int hello_world=0x7f050002;
         public static final int menu_item_avaliar_cardapio=0x7f050014;
         public static final int menu_item_comentarios=0x7f050016;
@@ -140,6 +148,7 @@ public final class R {
         public static final int title_activity_avaliar=0x7f05000e;
         public static final int title_activity_avaliar_cardapio=0x7f05000d;
         public static final int title_activity_avaliar_item_individual=0x7f050006;
+        public static final int title_activity_cardapio=0x7f05001e;
         public static final int title_activity_cardapio_semana=0x7f050010;
         public static final int title_activity_check_box=0x7f050005;
         public static final int title_activity_comentario=0x7f05000c;

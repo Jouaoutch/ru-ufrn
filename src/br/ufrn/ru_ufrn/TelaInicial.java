@@ -40,7 +40,7 @@ public class TelaInicial extends Activity implements OnClickListener {
 
 		switch (bnt.getId()) {
 		case R.id.button_cardapio:
-			exibirActivity(CardapioSemana.class);
+			exibirActivity(Cardapio.class);
 			return;
 		case R.id.button_avaliacoes:
 			exibirActivity(Avaliar.class);

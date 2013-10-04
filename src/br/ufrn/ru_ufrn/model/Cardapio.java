@@ -2,9 +2,12 @@ package br.ufrn.ru_ufrn.model;
 
 
 
+import java.util.Date;
 import java.util.List;
 
 public class Cardapio {
+	
+	private Date data;
 	private List<Alimento> cafeDaManha;
 	private List<Alimento> almocoVegetariano;
 	private List<Alimento> almocoCarnivoro;
@@ -65,8 +68,26 @@ public class Cardapio {
 	public void setJantaCarnivora(List<Alimento> jantaCarnivora) {
 		this.jantaCarnivora = jantaCarnivora;
 	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
 	
 	
-	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Cardapio clone = new Cardapio();
+		clone.setData(this.data);
+		clone.setCafeDaManha(this.cafeDaManha);
+		clone.setAlmocoVegetariano(this.almocoVegetariano);
+		clone.setAlmocoCarnivoro(this.almocoCarnivoro);
+		clone.setJantaVegetariana(this.jantaVegetariana);
+		clone.setJantaCarnivora(this.jantaCarnivora);
+		return clone;
+	}
 	
 }

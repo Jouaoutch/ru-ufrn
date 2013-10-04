@@ -9,3 +9,4 @@ gen/*
 .classpath
 .project
 lint.xml
+project.properties

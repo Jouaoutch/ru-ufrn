@@ -1,5 +1,7 @@
 package br.ufrn.ru_ufrn.model;
 
+
+
 import java.util.List;
 
 public class Cardapio {

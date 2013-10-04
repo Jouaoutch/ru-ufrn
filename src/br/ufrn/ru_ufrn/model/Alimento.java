@@ -1,5 +1,7 @@
 package br.ufrn.ru_ufrn.model;
 
+
+
 public class Alimento {
 	private String nome;
 	private String descricao;

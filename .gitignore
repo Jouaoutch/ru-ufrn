@@ -2,7 +2,9 @@
 bin/*
 gen/*
 *.swp
-*.~
+*.*~
+*.class
+*.log
 .settings/*
 .classpath
 .project

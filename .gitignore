@@ -1,0 +1,8 @@
+bin/**/*
+*.swp
+*.~
+.DS_Store
+.setting/**/*
+.classpath
+.projects
+lint.xml

@@ -4,17 +4,21 @@ import java.util.Calendar;
 import java.util.Date;
 
 import br.ufrn.ru_ufrn.adapter.CardapioArrayAdapter;
+import br.ufrn.ru_ufrn.adapter.MyExpandableListAdapter;
+import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 import br.ufrn.ru_ufrn.model.dao.DAOFactory;
 import br.ufrn.ru_ufrn.model.dao.MemoryDAOFactory;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +31,8 @@ public class Cardapio extends Activity {
 	private CardapioDAO cardapiodao;
 	private ArrayAdapter<String> adapter;
 	private ListView listview;
+	private SparseArray<Refeicao> groups = new SparseArray<Refeicao>();
+	private br.ufrn.ru_ufrn.model.Cardapio cardapio;
 
 	
 	@Override
@@ -41,8 +47,27 @@ public class Cardapio extends Activity {
 		 cardapiodao = daofact.getCardapioDAO();
 		
 		MockCardapio.mock(cardapiodao);
+		cardapio = cardapiodao.findByData(new Date());
 		
-		setCardapioItens();
+		//setCardapioItens();
+		createData();
+		setCardapioExpadableItens();
+	}
+
+	private void createData() {
+		groups.append(br.ufrn.ru_ufrn.model.Cardapio.CAFE_DA_MANHA, cardapio.getCafeDaManha());
+		groups.append(br.ufrn.ru_ufrn.model.Cardapio.ALMOCO_VEGETARIANO, cardapio.getAlmocoVegetariano());
+		groups.append(br.ufrn.ru_ufrn.model.Cardapio.ALMOCO_CARNIVORO, cardapio.getAlmocoCarnivoro());
+		groups.append(br.ufrn.ru_ufrn.model.Cardapio.JANTA_VEGETARIANA, cardapio.getJantaVegetariana());
+		groups.append(br.ufrn.ru_ufrn.model.Cardapio.JANTA_CARNIVORA, cardapio.getJantaCarnivora());
+		
+	}
+
+	private void setCardapioExpadableItens() {
+		ExpandableListView listView = (ExpandableListView) findViewById(R.id.listView);
+	    MyExpandableListAdapter adapter = new MyExpandableListAdapter(this,
+	        groups);
+	    listView.setAdapter(adapter);
 	}
 
 	private void setCardapioItens() {
@@ -56,7 +81,8 @@ public class Cardapio extends Activity {
 				"Janta Vegetariana",
 				"Janta Carnívora" };
 		adapter = new CardapioArrayAdapter(this,R.layout.rowlayout, refeicoes);
-		listview = (ListView) findViewById(R.id.listview);
+		//TODO quebra!
+		listview = (ListView) findViewById(R.id.listView);
 		listview.setAdapter(adapter);
  		
 	}

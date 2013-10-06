@@ -17,7 +17,7 @@ public class TesteSalvarJSONCardapio {
 		listCafe.add(new Alimento("Leite","Leite de vaca pasteurizado","leite.jpg"));
 		listCafe.add(new Alimento("Bolo de ovos","Bolo de ovos","bolo_ovos.jpg"));
 		
-		c.setCafeDaManha(listCafe);
+		//c.setCafeDaManha(listCafe);
 
 		List<Alimento> listAlmocoVeg = new ArrayList<Alimento>();
 		
@@ -25,7 +25,7 @@ public class TesteSalvarJSONCardapio {
 		listAlmocoVeg.add(new Alimento("Arroz","Arroz Branco","arroz_branco.jpg"));
 		listAlmocoVeg.add(new Alimento("Salada","Batatinha, cenoura e rúcula","salada.jpg"));
 
-		c.setAlmocoVegetariano(listAlmocoVeg);
+		//c.setAlmocoVegetariano(listAlmocoVeg);
 
 		System.out.println(gson.toJson(c));
 		

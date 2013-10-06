@@ -16,20 +16,21 @@ public class Cardapio {
 	
 	
 	private Date data;
-	private List<Alimento> cafeDaManha;
-	private List<Alimento> almocoVegetariano;
-	private List<Alimento> almocoCarnivoro;
-	private List<Alimento> jantaVegetariana;
-	private List<Alimento> jantaCarnivora;
+	private Refeicao cafeDaManha;
+	private Refeicao almocoVegetariano;
+	private Refeicao almocoCarnivoro;
+	private Refeicao jantaVegetariana;
+	private Refeicao jantaCarnivora;
 	
 	public Cardapio() {
 	
 	}
-
-	public Cardapio(List<Alimento> cafeDaManha,
-			List<Alimento> almocoVegetariano, List<Alimento> almocoCarnivoro,
-			List<Alimento> jantaVegetariana, List<Alimento> jantaCarnivora) {
+	
+	public Cardapio(Date data, Refeicao cafeDaManha,
+			Refeicao almocoVegetariano, Refeicao almocoCarnivoro,
+			Refeicao jantaVegetariana, Refeicao jantaCarnivora) {
 		super();
+		this.data = data;
 		this.cafeDaManha = cafeDaManha;
 		this.almocoVegetariano = almocoVegetariano;
 		this.almocoCarnivoro = almocoCarnivoro;
@@ -37,43 +38,45 @@ public class Cardapio {
 		this.jantaCarnivora = jantaCarnivora;
 	}
 
-	public List<Alimento> getCafeDaManha() {
+	
+
+	public Refeicao getCafeDaManha() {
 		return cafeDaManha;
 	}
 
-	public void setCafeDaManha(List<Alimento> cafeDaManha) {
+	public void setCafeDaManha(Refeicao cafeDaManha) {
 		this.cafeDaManha = cafeDaManha;
 	}
 
-	public List<Alimento> getAlmocoVegetariano() {
+	public Refeicao getAlmocoVegetariano() {
 		return almocoVegetariano;
 	}
 
-	public void setAlmocoVegetariano(List<Alimento> almocoVegetariano) {
+	public void setAlmocoVegetariano(Refeicao almocoVegetariano) {
 		this.almocoVegetariano = almocoVegetariano;
 	}
 
-	public List<Alimento> getAlmocoCarnivoro() {
+	public Refeicao getAlmocoCarnivoro() {
 		return almocoCarnivoro;
 	}
 
-	public void setAlmocoCarnivoro(List<Alimento> almocoCarnivoro) {
+	public void setAlmocoCarnivoro(Refeicao almocoCarnivoro) {
 		this.almocoCarnivoro = almocoCarnivoro;
 	}
 
-	public List<Alimento> getJantaVegetariana() {
+	public Refeicao getJantaVegetariana() {
 		return jantaVegetariana;
 	}
 
-	public void setJantaVegetariana(List<Alimento> jantaVegetariana) {
+	public void setJantaVegetariana(Refeicao jantaVegetariana) {
 		this.jantaVegetariana = jantaVegetariana;
 	}
 
-	public List<Alimento> getJantaCarnivora() {
+	public Refeicao getJantaCarnivora() {
 		return jantaCarnivora;
 	}
 
-	public void setJantaCarnivora(List<Alimento> jantaCarnivora) {
+	public void setJantaCarnivora(Refeicao jantaCarnivora) {
 		this.jantaCarnivora = jantaCarnivora;
 	}
 

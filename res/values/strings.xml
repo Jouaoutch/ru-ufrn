@@ -53,5 +53,6 @@
     <string name="button_comentarios">Comentários</string>
     <string name="button_mudar_data">Mudar a Data</string>
     <string name="title_activity_cardapio">Cardapio</string>
+    <string name="imageview_icon">Imagem do ícone</string>
 
 </resources>

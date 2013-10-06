@@ -7,6 +7,14 @@ import java.util.List;
 
 public class Cardapio {
 	
+	public static final int CAFE_DA_MANHA = 0;
+	public static final int ALMOCO_VEGETARIANO = 1;
+	public static final int ALMOCO_CARNIVORO= 2;
+	public static final int JANTA_VEGETARIANA= 3;
+	public static final int JANTA_CARNIVORA= 4;
+	
+	
+	
 	private Date data;
 	private List<Alimento> cafeDaManha;
 	private List<Alimento> almocoVegetariano;
@@ -89,5 +97,6 @@ public class Cardapio {
 		clone.setJantaCarnivora(this.jantaCarnivora);
 		return clone;
 	}
+	
 	
 }

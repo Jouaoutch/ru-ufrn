@@ -4,12 +4,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
- <Button
+    <Button
         android:id="@+id/button_mudar_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_mudar_data" />
-<TextView
+
+    <TextView
         android:id="@+id/textView_data_atual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,10 +23,22 @@
         android:layout_height="wrap_content"
         android:entries="@array/refeicoes" />
 
-    <ListView
-        android:id="@+id/listView1"
+    <TextView
+        android:id="@+id/textView_cardapio_itens"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </ListView>
+    </RelativeLayout>
 
 </LinearLayout>

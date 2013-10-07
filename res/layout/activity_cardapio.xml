@@ -8,7 +8,7 @@
         android:id="@+id/button_mudar_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_mudar_data" />
+        android:text="@string/button_mudar_data"/>
 
     <TextView
         android:id="@+id/textView_data_atual"

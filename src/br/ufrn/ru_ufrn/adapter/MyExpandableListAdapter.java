@@ -1,9 +1,11 @@
 package br.ufrn.ru_ufrn.adapter;
 
+import br.ufrn.ru_ufrn.ImageUtil;
 import br.ufrn.ru_ufrn.R;
 import br.ufrn.ru_ufrn.model.Alimento;
 import br.ufrn.ru_ufrn.model.Refeicao;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	private final SparseArray<Refeicao> groups;
 	public LayoutInflater inflater;
 	public Activity activity;
+	private ImageUtil imgutil;
+	
 
 	public MyExpandableListAdapter(Activity act, SparseArray<Refeicao> groups) {
 		activity = act;
@@ -40,12 +44,28 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, final int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
 		final Alimento item = (Alimento) getChild(groupPosition, childPosition);
-		TextView text = null;
+		
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.listrow_details, null);
 		}
-		text = (TextView) convertView.findViewById(R.id.textView1);
+		TextView text = (TextView) convertView.findViewById(R.id.textView_nome);
 		text.setText(item.getNome());
+		TextView text2 = (TextView) convertView.findViewById(R.id.textView_descricao);
+		text2.setText(item.getDescricao());		
+		imgutil = new ImageUtil();
+		Drawable image = null;
+		if (item.getImagem().startsWith("http://")) {
+			try {
+				image = imgutil.getImagem(item.getImagem());
+			} catch (Exception e) {
+				Toast.makeText(
+						this.activity,
+						"Erro ao recuperar a imagem na URL: "
+								+ item.getImagem(), Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			}
+			text.setCompoundDrawables(image, null, null, null);
+		}
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

@@ -17,7 +17,7 @@ public class MockCardapio {
 		Cardapio c = new Cardapio();
 		List<Alimento> listCafe = new ArrayList<Alimento>();
 		
-		listCafe.add(new Alimento("Café","Café preto feito na máquina","cafe.jpg"));
+		listCafe.add(new Alimento("Café","Café preto feito na máquina","http://icons.iconarchive.com/icons/babasse/old-school/64/coffee-icon.png"));
 		listCafe.add(new Alimento("Leite","Leite de vaca pasteurizado","leite.jpg"));
 		listCafe.add(new Alimento("Bolo de ovos","Bolo de ovos","bolo_ovos.jpg"));
 		

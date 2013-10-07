@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class Cardapio extends Activity {
@@ -33,6 +34,7 @@ public class Cardapio extends Activity {
 	private ListView listview;
 	private SparseArray<Refeicao> groups = new SparseArray<Refeicao>();
 	private br.ufrn.ru_ufrn.model.Cardapio cardapio;
+	private RatingBar ratingBar;
 
 	
 	@Override

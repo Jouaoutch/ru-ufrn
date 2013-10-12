@@ -1,13 +1,15 @@
 package br.ufrn.ru_ufrn.model.dao;
 
-import java.sql.Date;
+import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import br.ufrn.ru_ufrn.exceptions.DAOException;
 import br.ufrn.ru_ufrn.model.Avaliacao;
+import br.ufrn.ru_ufrn.model.NivelSatisfacao;
 import br.ufrn.ru_ufrn.model.ResultadoAvaliacoes;
 import br.ufrn.ru_ufrn.model.Usuario;
 
@@ -58,18 +60,76 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 		database.close();
 
 	}
+		
 
 	@Override
-	public Avaliacao getUltimaAvaliacao(Usuario user) throws DAOException {
+	public Avaliacao getUltimaAvaliacao(Usuario user, Date data) throws DAOException {
 
-		return null;
+		Avaliacao av = new Avaliacao();
+		
+		database  = this.getReadableDatabase();
+		
+		
+		//recupera todas as avaliações do usuário durante o dia e 
+		Cursor cursor = database.rawQuery("Select * from avaliacoes where idUsuario = '"+user.getId()+
+				"' and data = '"+data.getYear()+"-"+ data.getMonth()+"-"+data.getDay()+"' order by idavaliacao" +
+						" asc", null);
+		
+		
+		
+		//move o cursor para a ultima avaliação recuperada
+		if(cursor.moveToLast()){
+			
+			av.setIdAvaliacao(cursor.getLong(0));
+			av.setCardapioCumprido(cursor.getInt(1) == 1);
+			av.setRefeicao(cursor.getColumnName(2));
+			String dt[] = cursor.getString(3).split("-");
+			av.setData(new Date(Integer.parseInt(dt[0]), Integer.parseInt(dt[1]), Integer.parseInt(dt[2])));
+			av.setNivelSatisfacao(cursor.getString(4));
+			av.setIdUsuario(cursor.getLong(5));
+			
+		}
+		
+		return av;
 	}
 
 	@Override
-	public ResultadoAvaliacoes getResultadoAvaliacoes(Date data)
+	public ResultadoAvaliacoes getResultadoAvaliacoes(Date data, String refeicao)
 			throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ResultadoAvaliacoes resultAv = new ResultadoAvaliacoes();
+		
+		database  = this.getReadableDatabase();
+		
+		
+		Cursor cursor = database.rawQuery("select  COUNT(avaliacao) as numAvaliacoes, avaliacao " +
+				" from avaliacoes group by avaliacao, refeicao having data = '"
+				+data.getYear()+"-"+ data.getMonth()+"-"+data.getDay()+"' and refeicao = '"+refeicao+"'", null);
+		
+		while(cursor.moveToNext()){
+			
+			
+			int numAv = cursor.getInt(0);
+			String av = cursor.getString(1);
+			
+			if(av.equals(NivelSatisfacao.GOSTEI.toString())){
+				resultAv.setGostaram(numAv);
+			}
+			else if(av.equals(NivelSatisfacao.DESGOSTEI.toString())){
+				resultAv.setDesgostaram(numAv);
+			}
+			else if(av.equals(NivelSatisfacao.INDIFERENTE.toString())){
+				resultAv.setIndiferente(numAv);
+			}
+			
+		}
+		
+		resultAv.setData(data);
+		resultAv.setRefeicao(refeicao);
+		resultAv.setTotaVotos(resultAv.getDesgostaram()+resultAv.getGostaram()+resultAv.getIndiferente());
+		
+		return resultAv;
+		
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.ufrn.ru_ufrn.model;
 
+import java.util.Date;
+
 public class ResultadoAvaliacoes {
 
 	private String refeicao;
@@ -7,6 +9,15 @@ public class ResultadoAvaliacoes {
 	private int desgostaram;
 	private int indiferente;
 	private int totaVotos;
+	private Date data;
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
 
 	public String getRefeicao() {
 		return refeicao;

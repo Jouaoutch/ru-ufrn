@@ -1,6 +1,6 @@
 package br.ufrn.ru_ufrn.model.dao;
 
-import java.sql.Date;
+import java.util.Date;
 
 import br.ufrn.ru_ufrn.exceptions.DAOException;
 import br.ufrn.ru_ufrn.model.Avaliacao;
@@ -11,9 +11,9 @@ public interface AvaliacaoDAO {
 	
 	void avaliarRefeicao(Avaliacao avaliacao) throws DAOException;
 	
-	ResultadoAvaliacoes getResultadoAvaliacoes(Date data) throws DAOException;
+	ResultadoAvaliacoes getResultadoAvaliacoes(Date data, String refeicao) throws DAOException;
 
-	Avaliacao getUltimaAvaliacao(Usuario user) throws DAOException;
+	Avaliacao getUltimaAvaliacao(Usuario user, Date data) throws DAOException;
 	
 
 }

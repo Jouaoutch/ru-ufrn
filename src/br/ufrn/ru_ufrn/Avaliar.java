@@ -1,6 +1,6 @@
 package br.ufrn.ru_ufrn;
 
-import java.sql.Date;
+import java.util.Date;
 
 import br.ufrn.ru_ufrn.controller.AvaliacaoController;
 import br.ufrn.ru_ufrn.exceptions.DAOException;
@@ -8,6 +8,7 @@ import br.ufrn.ru_ufrn.exceptions.ValorInvalidoException;
 import br.ufrn.ru_ufrn.exceptions.ValorNuloException;
 import br.ufrn.ru_ufrn.model.Avaliacao;
 import br.ufrn.ru_ufrn.model.NivelSatisfacao;
+import br.ufrn.ru_ufrn.model.Usuario;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -32,6 +33,25 @@ public class Avaliar extends Activity {
 		setContentView(R.layout.activity_avaliar);
 		
 		addListenerOnButton();
+		
+		Usuario user = new Usuario();
+		user.setId(1L);
+		user.setLogin("qualquer coisa");
+		
+		try {
+			Avaliacao av = avController.getUltimaAvaliacao(user, new Date(System.currentTimeMillis()));
+			if(av.getData() != null)
+			System.out.println(av.getDataFormatoAmericano());
+		} catch (ValorInvalidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ValorNuloException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

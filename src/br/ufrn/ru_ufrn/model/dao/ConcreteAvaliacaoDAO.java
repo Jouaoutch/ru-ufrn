@@ -41,6 +41,7 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+
 	}
 
 	@Override
@@ -76,19 +77,21 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 						" asc", null);
 		
 		
-		
 		//move o cursor para a ultima avaliação recuperada
 		if(cursor.moveToLast()){
 			
 			av.setIdAvaliacao(cursor.getLong(0));
 			av.setCardapioCumprido(cursor.getInt(1) == 1);
-			av.setRefeicao(cursor.getColumnName(2));
+			av.setRefeicao(cursor.getString(2));
 			String dt[] = cursor.getString(3).split("-");
 			av.setData(new Date(Integer.parseInt(dt[0]), Integer.parseInt(dt[1]), Integer.parseInt(dt[2])));
 			av.setNivelSatisfacao(cursor.getString(4));
 			av.setIdUsuario(cursor.getLong(5));
 			
+			
 		}
+		
+		database.close();
 		
 		return av;
 	}
@@ -128,7 +131,25 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 		resultAv.setRefeicao(refeicao);
 		resultAv.setTotaVotos(resultAv.getDesgostaram()+resultAv.getGostaram()+resultAv.getIndiferente());
 		
+		database.close();
 		return resultAv;
+		
+	}
+
+	@Override
+	public void atualizarAvaliação(Avaliacao avaliacao) throws DAOException {
+		
+		ContentValues values = new ContentValues(5);
+
+		values.put("cardapioCumprido", avaliacao.isCardapioCumprido());
+		values.put("avaliacao", avaliacao.getNivelSatisfacao().toString());
+
+		database = this.getWritableDatabase();
+
+		String args[] = {String.valueOf(avaliacao.getIdAvaliacao()), String.valueOf(avaliacao.getIdUsuario())};
+		database.update("avaliacoes", values, "IdAvaliacao = ? and idUsuario = ?", args);
+
+		database.close();
 		
 	}
 

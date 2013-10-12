@@ -6,12 +6,12 @@ import org.apache.http.impl.cookie.DateUtils;
 
 public class Avaliacao {
 
-	private boolean cardapioCumprido;
+	private Boolean cardapioCumprido;
 	private Date data;
 	private NivelSatisfacao nivelSatisfacao;
 	private String refeicao;
-	private long idUsuario;
-	private long idAvaliacao;
+	private Long idUsuario;
+	private Long idAvaliacao;
 
 	public static final String ALMOCO_CARNIVORO = "almoço carnívoro",
 			ALMOCO_VEGETARIANO = "almoço vegetarioano", CAFE = "café da manhã",
@@ -26,11 +26,11 @@ public class Avaliacao {
 		this.refeicao = refeicao;
 	}
 
-	public long getIdUsuario() {
+	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(long idUsuario) {
+	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
@@ -77,11 +77,11 @@ public class Avaliacao {
 		return data.getYear() + "-" + data.getMonth() + "-" + data.getDay();
 	}
 
-	public long getIdAvaliacao() {
+	public Long getIdAvaliacao() {
 		return idAvaliacao;
 	}
 
-	public void setIdAvaliacao(long idAvaliacao) {
+	public void setIdAvaliacao(Long idAvaliacao) {
 		this.idAvaliacao = idAvaliacao;
 	}
 	

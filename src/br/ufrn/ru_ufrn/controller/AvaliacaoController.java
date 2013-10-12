@@ -7,7 +7,6 @@ import br.ufrn.ru_ufrn.exceptions.DAOException;
 import br.ufrn.ru_ufrn.exceptions.ValorInvalidoException;
 import br.ufrn.ru_ufrn.exceptions.ValorNuloException;
 import br.ufrn.ru_ufrn.model.Avaliacao;
-import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.Usuario;
 import br.ufrn.ru_ufrn.model.dao.AvaliacaoDAO;
 import br.ufrn.ru_ufrn.model.dao.ConcreteAvaliacaoDAO;
@@ -39,9 +38,9 @@ public class AvaliacaoController {
 			throw new ValorNuloException("Refeicao is null");
 		}
 		
-		if(avaliacao.getRefeicao() != avaliacao.CAFE && avaliacao.getRefeicao() != avaliacao.ALMOCO_CARNIVORO
-				&& avaliacao.getRefeicao() != avaliacao.ALMOCO_VEGETARIANO && avaliacao.getRefeicao() != avaliacao.JANTAR_CARNIVORO
-				&& avaliacao.getRefeicao() != avaliacao.JANTAR_VEGETARIANO){
+		if(! (avaliacao.getRefeicao().equals(Avaliacao.ALMOCO_CARNIVORO) || avaliacao.getRefeicao().equals(Avaliacao.ALMOCO_VEGETARIANO) 
+				|| avaliacao.getRefeicao().equals(Avaliacao.CAFE) || avaliacao.getRefeicao().equals(Avaliacao.JANTAR_CARNIVORO)
+				|| avaliacao.getRefeicao().equals(Avaliacao.JANTAR_VEGETARIANO)) ){
 			
 			throw new ValorInvalidoException("refeição invalid: "+avaliacao.getRefeicao());
 		}
@@ -76,6 +75,12 @@ public class AvaliacaoController {
 		}
 		
 		return av;
+	}
+	
+	public void atualizarAvaliacao(Avaliacao avaliacao) throws ValorNuloException, ValorInvalidoException, DAOException{
+		if(validarDados(avaliacao) && avaliacao.getIdAvaliacao() != null){
+			avDao.atualizarAvaliação(avaliacao);
+		}
 	}
 
 }

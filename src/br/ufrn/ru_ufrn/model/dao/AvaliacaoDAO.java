@@ -15,5 +15,7 @@ public interface AvaliacaoDAO {
 
 	Avaliacao getUltimaAvaliacao(Usuario user, Date data) throws DAOException;
 	
+	void atualizarAvaliação(Avaliacao avaliacao) throws DAOException;
+	
 
 }

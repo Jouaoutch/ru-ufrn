@@ -8,70 +8,81 @@
         android:id="@+id/name_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Qual seu nível de satisfação com a refeição de hoje?"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="Qual seu nível de satisfação com a refeição de hoje?" />
-  
-   
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:text="Almoço 16/09/13\n" />
-    
+        android:text="Almoço 16/09/13\n"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/cardapio_do_dia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="	Feijão Branco \n	Farinha D'água \n	Frango cozido \n	Arroz\n	Salada de abóbora\n	Suco de caju\n" />
+        android:text="	Feijão Branco \n	Farinha D&apos;água \n	Frango cozido \n	Arroz\n	Salada de abóbora\n	Suco de caju\n" />
 
-    <RadioButton
-        android:id="@+id/checkbox_meat"
+    <RadioGroup
+        android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/gostei"
-         android:text=" gostei "
-        android:onClick="onRadioButtonClicked" />
+        android:layout_height="wrap_content" >
 
-    <RadioButton
-        android:id="@+id/checkbox_indiferente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/indiferente"
-         android:text=" indiferente "
-        android:onClick="onRadioButtonClicked" />
+        <RadioButton
+            android:id="@+id/rbGostei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/gostei"
+            android:onClick="RbAvaliacaoCliecked"
+            android:text=" gostei " />
 
-    <RadioButton
-        android:id="@+id/checkbox_cheese"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/desgostei"
-        android:text=" desgostei "
-        android:onClick="onRadioButtonClicked" />
-    
+        <RadioButton
+            android:id="@+id/rbIndiferente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/indiferente"
+            android:onClick="RbAvaliacaoCliecked"
+            android:text=" indiferente " />
+
+        <RadioButton
+            android:id="@+id/rbDesgostei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/desgostei"
+            android:onClick="RbAvaliacaoCliecked"
+            android:text=" desgostei " />
+    </RadioGroup>
+
     <TextView
         android:id="@+id/name_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="\nO cardápio do dia foi cumprido?\n" />
-    
-    <RadioButton
-        android:id="@+id/checkbox_sim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         android:text=" Sim "
-        android:onClick="onRadioButtonClicked" />
 
-    <RadioButton
-        android:id="@+id/checkbox_nao"
+    <RadioGroup
+        android:id="@+id/radioGroup2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" Não "
-        android:onClick="onRadioButtonClicked" />
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/rbSim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="RbCardapioCumprido"
+            android:text=" Sim " />
+
+        <RadioButton
+            android:id="@+id/rbNao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="RbCardapioCumprido"
+            android:text=" Não " />
+    </RadioGroup>
 
     <Button
-        android:id="@+id/button_cardapio"
+        android:id="@+id/btVotar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Votar" />

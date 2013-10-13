@@ -10,3 +10,6 @@ http://rogerdudler.github.io/git-guide/index.pt_BR.html
 
 #Incluindo uma imagem no ImageView
 http://helpdev.com.br/2011/06/13/android-exibindo-uma-imagem-da-web-em-um-imageview/
+
+# SQLite SQL Syntax
+http://www.sqlite.org/lang.html

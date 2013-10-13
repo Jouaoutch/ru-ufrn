@@ -31,7 +31,7 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 	}
 
 	@Override
-	public Cardapio findById(Class<Cardapio> classe, Date id)
+	public Cardapio findById(Class<Cardapio> classe, Integer id)
 			throws DAOException {
 		// TODO Auto-generated method stub
 		return null;

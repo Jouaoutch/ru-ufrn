@@ -5,7 +5,7 @@ package br.ufrn.ru_ufrn.model;
 import java.util.Date;
 import java.util.List;
 
-public class Cardapio {
+public class Cardapio extends Model{
 	
 	public static final int CAFE_DA_MANHA = 0;
 	public static final int ALMOCO_VEGETARIANO = 1;

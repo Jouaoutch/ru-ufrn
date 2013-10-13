@@ -3,7 +3,7 @@ package br.ufrn.ru_ufrn.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Refeicao {
+public class Refeicao extends Model{
 		public String nome;
 		private int tipo;
 		public final List<Alimento> itens = new ArrayList<Alimento>();

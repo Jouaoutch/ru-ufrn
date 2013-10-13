@@ -2,7 +2,7 @@ package br.ufrn.ru_ufrn.model;
 
 
 
-public class Alimento {
+public class Alimento extends Model {
 	private String nome;
 	private String descricao;
 	private String imagem;

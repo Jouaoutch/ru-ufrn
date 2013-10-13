@@ -5,14 +5,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import br.ufrn.ru_ufrn.R;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import br.ufrn.ru_ufrn.exceptions.DAOException;
+import br.ufrn.ru_ufrn.model.Alimento;
 import br.ufrn.ru_ufrn.model.Cardapio;
+import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 
 public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
@@ -80,12 +84,39 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 	}
 
 	@Override
-	public Cardapio save(Cardapio entity) throws DAOException {
+	public Cardapio save(Cardapio cardapio) throws DAOException {
 		
-		
-		
+		if(cardapio.getCafeDaManha().getId() == null){
+			save(cardapio.getCafeDaManha());
+		}
 		
 		return null;
+	}
+
+	private void save(Refeicao refeicao) {
+				for (Iterator<Alimento> iterator = refeicao.getItens().iterator(); iterator
+						.hasNext();) {
+					Alimento alimento = iterator.next();
+					if(alimento.getId() == null){
+						save(alimento);
+					}
+					
+				}
+	}
+
+	private void save(Alimento alimento) {
+		ContentValues values = new ContentValues();
+		
+		values.put("nome", alimento.getNome());
+		values.put("descricao", alimento.getDescricao());
+		values.put("imagem", alimento.getImagem());
+		
+		this.database = this.getWritableDatabase();
+		
+		this.database.insert("Alimento",null, values);
+		
+		this.database.close();
+		
 	}
 
 	@Override

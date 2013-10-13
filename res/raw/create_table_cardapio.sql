@@ -7,7 +7,7 @@ CREATE TABLE Refeicao (
 CREATE TABLE Alimento (
 	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	nome TEXT NOT NULL,
-	tipo TEXT NOT NULL,
+	descricao TEXT NOT NULL,
 	imagem TEXT
 ),
 

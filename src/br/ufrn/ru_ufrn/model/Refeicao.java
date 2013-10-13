@@ -6,7 +6,7 @@ import java.util.List;
 public class Refeicao extends Model{
 		public String nome;
 		private int tipo;
-		public final List<Alimento> itens = new ArrayList<Alimento>();
+		private final List<Alimento> itens = new ArrayList<Alimento>();
 		
 		public Refeicao(String nome, int tipo) {
 			super();
@@ -25,6 +25,10 @@ public class Refeicao extends Model{
 		
 		public void removerAlimento(String nome){
 			//TODO remover alimento;
+		}
+		
+		public List<Alimento> getItens(){
+			return this.itens;
 		}
 		
 }

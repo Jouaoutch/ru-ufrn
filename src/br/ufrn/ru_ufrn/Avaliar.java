@@ -34,7 +34,8 @@ public class Avaliar extends Activity {
 	private Avaliacao avaliacao = new Avaliacao();
 	private Button votar;
 	private AvaliacaoController avController = new AvaliacaoController(this);
-	private DialogAtualizarAvaliacao dialogAtualizarAvaliacao = new DialogAtualizarAvaliacao(this);
+	private DialogAtualizarAvaliacao dialogAtualizarAvaliacao = new DialogAtualizarAvaliacao(
+			this);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,46 +45,49 @@ public class Avaliar extends Activity {
 
 		addListenerOnButton();
 
-
 		verificarAvaliacoes();
 	}
 
-	//verifica se ja exixte uma valiação pra refeição em questão, se exixtir seta os dados
+	// verifica se ja exixte uma valiação pra refeição em questão, se exixtir
+	// seta os dados
 	private void verificarAvaliacoes() {
-		
+
 		Usuario user = new Usuario();
 		user.setId(1L);
 		user.setLogin("qualquer coisa");
-		
+
 		try {
-			avaliacao = avController.getUltimaAvaliacao(user, new Date(
-					System.currentTimeMillis()));
-			if(avaliacao != null){
-				
+			avaliacao = avController.getUltimaAvaliacao(user,
+					new Date(System.currentTimeMillis()));
+			if (avaliacao != null) {
+
 				RadioButton ns = null;
-				if(avaliacao.getNivelSatisfacao().toString().equals(NivelSatisfacao.DESGOSTEI.toString())){
-					ns = (RadioButton) findViewById (R.id.rbDesgostei);
+				if (avaliacao.getNivelSatisfacao().toString()
+						.equals(NivelSatisfacao.DESGOSTEI.toString())) {
+					ns = (RadioButton) findViewById(R.id.rbDesgostei);
+					ns.setChecked(true);
+				} else if (avaliacao.getNivelSatisfacao().toString()
+						.equals(NivelSatisfacao.GOSTEI.toString())) {
+					ns = (RadioButton) findViewById(R.id.rbGostei);
+					ns.setChecked(true);
+				} else if (avaliacao.getNivelSatisfacao().toString()
+						.equals(NivelSatisfacao.INDIFERENTE.toString())) {
+					ns = (RadioButton) findViewById(R.id.rbIndiferente);
 					ns.setChecked(true);
 				}
-				else if(avaliacao.getNivelSatisfacao().toString().equals(NivelSatisfacao.GOSTEI.toString())){
-					ns = (RadioButton) findViewById (R.id.rbGostei);
-					ns.setChecked(true);
-				}
-				else if(avaliacao.getNivelSatisfacao().toString().equals(NivelSatisfacao.INDIFERENTE.toString())){
-					ns = (RadioButton) findViewById (R.id.rbIndiferente);
-					ns.setChecked(true);
-				}
-				
+
 				RadioButton cc = null;
-				
-				if(avaliacao.isCardapioCumprido()){
-					cc = (RadioButton) findViewById (R.id.rbSim);
+
+				if (avaliacao.isCardapioCumprido()) {
+					cc = (RadioButton) findViewById(R.id.rbSim);
 					cc.setChecked(true);
-				}else if(!avaliacao.isCardapioCumprido()){
-					cc = (RadioButton) findViewById (R.id.rbNao);
+				} else if (!avaliacao.isCardapioCumprido()) {
+					cc = (RadioButton) findViewById(R.id.rbNao);
 					cc.setChecked(true);
 				}
-				
+
+			}else{
+				avaliacao = new Avaliacao();
 			}
 		} catch (ValorInvalidoException e) {
 			// TODO Auto-generated catch block
@@ -192,8 +196,6 @@ public class Avaliar extends Activity {
 		}
 
 	}
-	
-	
 
 	private void addListenerOnButton() {
 
@@ -205,7 +207,7 @@ public class Avaliar extends Activity {
 				try {
 					if (avaliacao.getIdAvaliacao() == null) {
 						realizarAvaliacao();
-					}else{
+					} else {
 						atualizarAvaliacao();
 					}
 
@@ -221,12 +223,14 @@ public class Avaliar extends Activity {
 				}
 
 			}
-			
-			private void atualizarAvaliacao() throws ValorNuloException, ValorInvalidoException, DAOException{
+
+			private void atualizarAvaliacao() throws ValorNuloException,
+					ValorInvalidoException, DAOException {
 				avController.atualizarAvaliacao(avaliacao);
-				
-				dialogAtualizarAvaliacao.show(getFragmentManager(), "Atualizar Avaliação");
-				
+
+				dialogAtualizarAvaliacao.show(getFragmentManager(),
+						"Atualizar Avaliação");
+
 			}
 
 			private void realizarAvaliacao() throws ValorNuloException,
@@ -237,11 +241,12 @@ public class Avaliar extends Activity {
 				avaliacao.setRefeicao(avaliacao.ALMOCO_CARNIVORO);
 
 				avController.avaliarRefeicao(avaliacao);
-				
+
 				Usuario user = new Usuario();
 				user.setId(1L);
 				user.setLogin("qualquer coisaq");
-				avaliacao = avController.getUltimaAvaliacao(user, avaliacao.getData());
+				avaliacao = avController.getUltimaAvaliacao(user,
+						avaliacao.getData());
 
 				exibirMesssageToast("Avaliação realizada com sucesso!");
 
@@ -257,51 +262,59 @@ public class Avaliar extends Activity {
 		});
 
 	}
-	
-	private class DialogAtualizarAvaliacao  extends DialogFragment{
-		
+
+	private class DialogAtualizarAvaliacao extends DialogFragment {
+
 		private Context context;
 
-		public DialogAtualizarAvaliacao(Context context){
+		public DialogAtualizarAvaliacao(Context context) {
 			this.context = context;
 		}
-		
+
 		@Override
-	    public Dialog onCreateDialog(Bundle savedInstanceState) {
-	        // Use the Builder class for convenient dialog construction
-	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	        builder.setMessage("Deseja atualizar sua avaliação?")
-	               .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                       try {
-							avController.atualizarAvaliacao(avaliacao);
-							
-							int duration = Toast.LENGTH_SHORT;
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the Builder class for convenient dialog construction
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setMessage("Deseja atualizar sua avaliação?")
+					.setPositiveButton("Sim",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									try {
+										avController
+												.atualizarAvaliacao(avaliacao);
 
-							Toast toast = Toast.makeText(context, "Avaliação atualizada com sucesso!", duration);
-							toast.show();
-							
-						} catch (ValorNuloException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (ValorInvalidoException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (DAOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-	                   }
-	               })
-	               .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                       // Do nothing
-	                   }
-	               });
-	        // Create the AlertDialog object and return it
-	        return builder.create();
-	    }
+										int duration = Toast.LENGTH_SHORT;
 
+										Toast toast = Toast
+												.makeText(
+														context,
+														"Avaliação atualizada com sucesso!",
+														duration);
+										toast.show();
+
+									} catch (ValorNuloException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (ValorInvalidoException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (DAOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
+							})
+					.setNegativeButton("Não",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+									// Do nothing
+								}
+							});
+			// Create the AlertDialog object and return it
+			return builder.create();
+		}
 
 	}
 }

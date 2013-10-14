@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import br.ufrn.ru_ufrn.model.Cardapio;
 
-public class CardapioMemoryDAO extends MemoryDAO<Cardapio, java.util.Date> implements
+public class CardapioMemoryDAO extends MemoryDAO<Cardapio, Integer> implements
 		CardapioDAO{
 
 	@Override

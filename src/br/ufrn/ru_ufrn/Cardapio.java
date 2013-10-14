@@ -21,8 +21,10 @@ import br.ufrn.ru_ufrn.adapter.CardapioArrayAdapter;
 import br.ufrn.ru_ufrn.adapter.MyExpandableListAdapter;
 import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
+import br.ufrn.ru_ufrn.model.dao.CardapioSQLiteDAO;
 import br.ufrn.ru_ufrn.model.dao.DAOFactory;
 import br.ufrn.ru_ufrn.model.dao.MemoryDAOFactory;
+import br.ufrn.ru_ufrn.model.dao.SQLiteDAOFactory;
 
 public class Cardapio extends Activity {
 
@@ -45,10 +47,10 @@ public class Cardapio extends Activity {
 		setCurrentDateOnView();
 		addListenerOnButton();
 
-		daofact = new MemoryDAOFactory();
-		cardapiodao = daofact.getCardapioDAO();
+		//daofact = new SQLiteDAOFactory();
+		cardapiodao = new CardapioSQLiteDAO(this);
 
-		MockCardapio.mock(cardapiodao);
+		new MockCardapio().mock(cardapiodao, new Date());
 		cardapio = cardapiodao.findByData(new Date());
 
 		// setCardapioItens();

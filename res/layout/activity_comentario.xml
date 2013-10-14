@@ -1,51 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-
-    <EditText
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.01"
-          android:textColor="#330099"
-        android:text="Chico Ribeiro\nA comida hoje tava muito ruim." />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.01"
-          android:textColor="#330099"
-        android:text="Maria Antonieta\nRuim é apilido. O q eles fazem com aquele frango?" />
-    
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.01"
-         android:textColor="#330099"
-        android:text="Alfredo\nSem comentarios... :/" />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.01"
-        android:textColor="#330099"
-        android:text="Rita\nPodia ser pior.." />
-    
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.03"
-        android:gravity="top"
-        android:textSize="18sp"
-        android:hint="Ecreva seu comentário" />
-    
-     <Button
-        android:id="@+id/button_cardapio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="enviar" />
-    
-    
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout 
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="#FFFFFFFF"
+>    
+        <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#FFECECEC"
+        android:dividerHeight="2sp"
+        />    
 </LinearLayout>
+

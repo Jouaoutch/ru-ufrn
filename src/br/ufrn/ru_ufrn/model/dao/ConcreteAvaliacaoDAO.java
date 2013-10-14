@@ -20,10 +20,8 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 	private static final int version = 1;
 	private static final String createTable = "CREATE TABLE avaliacoes ("
 			+ " idAvaliacao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-			+ "cardapioCumprido boolean NOT NULL, "
-			+ "refeicao varchar(20), "
-			+ "data date NOT NULL, "
-			+ "avaliacao varchar(10) NOT NULL, "
+			+ "cardapioCumprido boolean NOT NULL, " + "refeicao varchar(20), "
+			+ "data date NOT NULL, " + "avaliacao varchar(10) NOT NULL, "
 			+ "idUsuario  Integer NOT NULL );";
 
 	private SQLiteDatabase database;
@@ -40,7 +38,6 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
 
 	}
 
@@ -61,84 +58,89 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 		database.close();
 
 	}
-		
 
 	@Override
-	public Avaliacao getUltimaAvaliacao(Usuario user, Date data) throws DAOException {
+	public Avaliacao getUltimaAvaliacao(Usuario user, Date data)
+			throws DAOException {
 
-		Avaliacao av = new Avaliacao();
-		
-		database  = this.getReadableDatabase();
-		
-		
-		//recupera todas as avaliações do usuário durante o dia e 
-		Cursor cursor = database.rawQuery("Select * from avaliacoes where idUsuario = '"+user.getId()+
-				"' and data = '"+data.getYear()+"-"+ data.getMonth()+"-"+data.getDay()+"' order by idavaliacao" +
-						" asc", null);
-		
-		
-		//move o cursor para a ultima avaliação recuperada
-		if(cursor.moveToLast()){
-			
-			av.setIdAvaliacao(cursor.getLong(0));
-			av.setCardapioCumprido(cursor.getInt(1) == 1);
-			av.setRefeicao(cursor.getString(2));
-			String dt[] = cursor.getString(3).split("-");
-			av.setData(new Date(Integer.parseInt(dt[0]), Integer.parseInt(dt[1]), Integer.parseInt(dt[2])));
-			av.setNivelSatisfacao(cursor.getString(4));
-			av.setIdUsuario(cursor.getLong(5));
-			
-			
+		Avaliacao av = null;
+
+		database = this.getReadableDatabase();
+
+		try {
+			// recupera todas as avaliações do usuário durante o dia e
+			Cursor cursor = database.rawQuery(
+					"Select * from avaliacoes where idUsuario = '"
+							+ user.getId() + "' and data = '" + data.getYear()
+							+ "-" + data.getMonth() + "-" + data.getDay()
+							+ "' order by idavaliacao" + " asc", null);
+
+			// move o cursor para a ultima avaliação recuperada
+			if (cursor.moveToLast()) {
+				av = new Avaliacao();
+				av.setIdAvaliacao(cursor.getLong(0));
+				av.setCardapioCumprido(cursor.getInt(1) == 1);
+				av.setRefeicao(cursor.getString(2));
+				String dt[] = cursor.getString(3).split("-");
+				av.setData(new Date(Integer.parseInt(dt[0]), Integer
+						.parseInt(dt[1]), Integer.parseInt(dt[2])));
+				av.setNivelSatisfacao(cursor.getString(4));
+				av.setIdUsuario(cursor.getLong(5));
+
+			}
+
+			database.close();
+		} catch (Exception e) {
+			throw new DAOException(e.getMessage());
 		}
-		
-		database.close();
-		
+
 		return av;
 	}
 
 	@Override
 	public ResultadoAvaliacoes getResultadoAvaliacoes(Date data, String refeicao)
 			throws DAOException {
-		
+
 		ResultadoAvaliacoes resultAv = new ResultadoAvaliacoes();
-		
-		database  = this.getReadableDatabase();
-		
-		
-		Cursor cursor = database.rawQuery("select  COUNT(avaliacao) as numAvaliacoes, avaliacao " +
-				" from avaliacoes group by avaliacao, refeicao having data = '"
-				+data.getYear()+"-"+ data.getMonth()+"-"+data.getDay()+"' and refeicao = '"+refeicao+"'", null);
-		
-		while(cursor.moveToNext()){
-			
-			
+
+		database = this.getReadableDatabase();
+
+		Cursor cursor = database
+				.rawQuery(
+						"select  COUNT(avaliacao) as numAvaliacoes, avaliacao "
+								+ " from avaliacoes group by avaliacao, refeicao having data = '"
+								+ data.getYear() + "-" + data.getMonth() + "-"
+								+ data.getDay() + "' and refeicao = '"
+								+ refeicao + "'", null);
+
+		while (cursor.moveToNext()) {
+
 			int numAv = cursor.getInt(0);
 			String av = cursor.getString(1);
-			
-			if(av.equals(NivelSatisfacao.GOSTEI.toString())){
+
+			if (av.equals(NivelSatisfacao.GOSTEI.toString())) {
 				resultAv.setGostaram(numAv);
-			}
-			else if(av.equals(NivelSatisfacao.DESGOSTEI.toString())){
+			} else if (av.equals(NivelSatisfacao.DESGOSTEI.toString())) {
 				resultAv.setDesgostaram(numAv);
-			}
-			else if(av.equals(NivelSatisfacao.INDIFERENTE.toString())){
+			} else if (av.equals(NivelSatisfacao.INDIFERENTE.toString())) {
 				resultAv.setIndiferente(numAv);
 			}
-			
+
 		}
-		
+
 		resultAv.setData(data);
 		resultAv.setRefeicao(refeicao);
-		resultAv.setTotaVotos(resultAv.getDesgostaram()+resultAv.getGostaram()+resultAv.getIndiferente());
-		
+		resultAv.setTotaVotos(resultAv.getDesgostaram()
+				+ resultAv.getGostaram() + resultAv.getIndiferente());
+
 		database.close();
 		return resultAv;
-		
+
 	}
 
 	@Override
 	public void atualizarAvaliação(Avaliacao avaliacao) throws DAOException {
-		
+
 		ContentValues values = new ContentValues(5);
 
 		values.put("cardapioCumprido", avaliacao.isCardapioCumprido());
@@ -146,11 +148,13 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 
 		database = this.getWritableDatabase();
 
-		String args[] = {String.valueOf(avaliacao.getIdAvaliacao()), String.valueOf(avaliacao.getIdUsuario())};
-		database.update("avaliacoes", values, "IdAvaliacao = ? and idUsuario = ?", args);
+		String args[] = { String.valueOf(avaliacao.getIdAvaliacao()),
+				String.valueOf(avaliacao.getIdUsuario()) };
+		database.update("avaliacoes", values,
+				"IdAvaliacao = ? and idUsuario = ?", args);
 
 		database.close();
-		
+
 	}
 
 }

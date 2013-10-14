@@ -6,7 +6,7 @@ import java.util.List;
 public class Refeicao extends Model{
 		public String nome;
 		private int tipo;
-		private final List<Alimento> itens = new ArrayList<Alimento>();
+		public final List<Alimento> itens = new ArrayList<Alimento>();
 		
 		public Refeicao(String nome, int tipo) {
 			super();

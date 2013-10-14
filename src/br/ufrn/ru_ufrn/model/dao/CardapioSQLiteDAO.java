@@ -26,8 +26,12 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 
 	private SQLiteDatabase database;
 	private Context context;
-	
-	
+	private String createTable = "CREATE TABLE Refeicao (	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,	nome TEXT NOT NULL,	tipo TEXT NOT NULL);"+
+			"CREATE TABLE Alimento (	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,	nome TEXT NOT NULL,	descricao TEXT NOT NULL,	imagem TEXT);" +
+			"CREATE TABLE Refeicao_Alimento (	id_refeicao INTEGER NOT NULL,	id_alimento INTEGER NOT NULL,	CONSTRAINT PRIMARY KEY(id_refeicao,id_alimento),	CONSTRAINT FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,	CONSTRAINT FOREIGN KEY (id_alimento) REFERENCES Alimento(id) ON DELETE RESTRICT);" +
+			"CREATE TABLE Cardapio (	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,	data TEXT NOT NULL)," +
+			"CREATE TABLE Cardapio_Refeicao (	id_cardapio INTEGER NOT NULL,	id_refeicao INTEGER NOT NULL,	CONSTRAINT PRIMARY KEY(id_cardapio, id_refeicao),	CONSTRAINT FOREIGN KEY (id_cardapio) REFERENCES Cardapio(id) ON DELETE RESTRICT,	CONSTRAINT FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT);";
+
 	public CardapioSQLiteDAO(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;
@@ -41,16 +45,16 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 		return null;
 	}
 
-
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String createTable = carregarArquivoSQL();
+		//createTable = carregarArquivoSQL();
 		db.execSQL(createTable);
 
 	}
 
 	private String carregarArquivoSQL() {
-		InputStream is = this.context.getResources().openRawResource(R.raw.create_table_cardapio);
+		InputStream is = this.context.getResources().openRawResource(
+				R.raw.create_table_cardapio);
 		InputStreamReader isr = new InputStreamReader(is);
 		BufferedReader br = new BufferedReader(isr);
 		StringBuilder sb = new StringBuilder();
@@ -67,7 +71,7 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 			e.printStackTrace();
 		}
 		return sb.toString();
-		
+
 	}
 
 	@Override
@@ -75,8 +79,7 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 		// TODO Auto-generated method stub
 
 	}
-	
-	
+
 	@Override
 	public List<Cardapio> findAll(Class<Cardapio> classe) throws DAOException {
 		// TODO Auto-generated method stub
@@ -85,38 +88,38 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 
 	@Override
 	public Cardapio save(Cardapio cardapio) throws DAOException {
-		
-		if(cardapio.getCafeDaManha().getId() == null){
+
+		if (cardapio.getCafeDaManha().getId() == null) {
 			save(cardapio.getCafeDaManha());
 		}
-		
+
 		return null;
 	}
 
 	private void save(Refeicao refeicao) {
-				for (Iterator<Alimento> iterator = refeicao.getItens().iterator(); iterator
-						.hasNext();) {
-					Alimento alimento = iterator.next();
-					if(alimento.getId() == null){
-						save(alimento);
-					}
-					
-				}
+		for (Iterator<Alimento> iterator = refeicao.getItens().iterator(); iterator
+				.hasNext();) {
+			Alimento alimento = iterator.next();
+			if (alimento.getId() == null) {
+				save(alimento);
+			}
+
+		}
 	}
 
 	private void save(Alimento alimento) {
-		ContentValues values = new ContentValues();
-		
+		ContentValues values = new ContentValues(3);
+
 		values.put("nome", alimento.getNome());
 		values.put("descricao", alimento.getDescricao());
 		values.put("imagem", alimento.getImagem());
-		
+
 		this.database = this.getWritableDatabase();
-		
-		this.database.insert("Alimento",null, values);
-		
+
+		this.database.insert("Alimento", null, values);
+
 		this.database.close();
-		
+
 	}
 
 	@Override
@@ -136,6 +139,5 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

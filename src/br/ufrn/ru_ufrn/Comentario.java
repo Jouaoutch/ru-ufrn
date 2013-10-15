@@ -8,8 +8,12 @@ import br.ufrn.ru_ufrn.model.ItemListView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class Comentario extends Activity {
@@ -24,11 +28,24 @@ public class Comentario extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_comentario);
 		
+		
+      
 		itens = new ArrayList<ItemListView>();
 		
-		ItemListView item = new ItemListView("comentario 1","", "Jorge");
-		ItemListView item2 = new ItemListView("comentario 2", "", "Jorge");
-		ItemListView item3 = new ItemListView("comentario 1", "", "Jorge");
+		listView = (ListView) findViewById(R.id.list);
+		 
+		// Creating a button - Load More
+		/*Button btenviar = new Button(this);
+		btenviar.setText("Enviar");
+		btenviar.setGravity(Gravity.RIGHT);
+
+		 
+		// Adding button to listview at footer
+		listView.addFooterView(btenviar);*/
+		
+		ItemListView item = new ItemListView("comentario 1",R.drawable.jorge, "Jorge");
+		ItemListView item2 = new ItemListView("comentario 2", R.drawable.jorge, "Jorge");
+		ItemListView item3 = new ItemListView("comentario 1", R.drawable.jorge, "Jorge");
 
 		itens.add(item);
 		itens.add(item2);
@@ -36,9 +53,16 @@ public class Comentario extends Activity {
 		
 		adapter = new AdapterListView(this, itens, this.findViewById(R.layout.activity_comentario));
 		
-		listView = (ListView) findViewById(R.id.list);
 		
 		listView.setAdapter(adapter);
+		
+
+		/*EditText editText = (EditText) findViewById(R.id.comentario);
+		
+		listView.addFooterView(editText);
+		
+		Button btEnviar = (Button) findViewById(R.id.btEnviar);
+		listView.addFooterView(btEnviar);*/
 		
 	}
 

@@ -27,7 +27,7 @@ public class AdapterListView extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private List<ItemListView> itens;
-	private FileInputStream imagem;
+	private int imagem;
 	private View view;
 
 	public AdapterListView(Context context, List<ItemListView> itens, View view) {
@@ -76,34 +76,16 @@ public class AdapterListView extends BaseAdapter {
 		// e define os valores nos itens.
 		ItemListView item = itens.get(position);
 		itemHolder.txtTitle.setText(item.getTexto());
-		//itemHolder.imgIcon.setImageResource(item.getIconeRid());
+		itemHolder.imgIcon.setImageResource(item.getImage());
 		itemHolder.user.setText(item.getUsuario());
 		
-		Drawable image;
-		try {
-			image = getImagem();
-			itemHolder.imgIcon = (ImageView)view.findViewById(R.id.imagemview);
-			
-			itemHolder.imgIcon.setImageDrawable(image);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 
 		// retorna a view com as informações
 		return view;
 	}
 	
-	public Drawable getImagem() throws Exception {
-	    imagem = new FileInputStream("jorge.jpg");
-	 
-	 //   InputStream is = (InputStream) getObjeto(url);
-	    Drawable d = Drawable.createFromStream(imagem, "src");
-	 
-	    return d;
-	}
-
+	
 	/**
 	 * Classe de suporte para os itens do layout.
 	 */

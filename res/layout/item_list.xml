@@ -28,7 +28,10 @@
                 <ImageView
                     android:id="@+id/imagemview"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="38dp"
+                    android:maxWidth="38dp" />
 
                 <TextView
                     android:id="@+id/usuario"
@@ -39,8 +42,6 @@
                     android:paddingLeft="5dp"
                     android:textColor="#333333" />
             </LinearLayout>
-            
-            
         </TableRow>
 
         <TableRow>

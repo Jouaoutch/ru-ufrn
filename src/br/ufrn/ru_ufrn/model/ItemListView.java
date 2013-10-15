@@ -2,14 +2,14 @@ package br.ufrn.ru_ufrn.model;
 
 public class ItemListView {
 	private String texto;
-    private String image ;
+    private int image ;
     private String usuario;
 
     public ItemListView() {
-	this("", "", "");
+	this("", -1, "");
     }
 
-    public ItemListView(String texto, String image, String usurio) {
+    public ItemListView(String texto, int image, String usurio) {
         this.texto = texto;
         this.image = image;
         this.usuario = usurio;
@@ -29,11 +29,11 @@ public class ItemListView {
 
 
 
-    public String getImage() {
+    public int getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(int image) {
 		this.image = image;
 	}
 

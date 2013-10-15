@@ -31,3 +31,32 @@ CREATE TABLE Cardapio_Refeicao (
 	CONSTRAINT FOREIGN KEY (id_cardapio) REFERENCES Cardapio(id) ON DELETE RESTRICT,
 	CONSTRAINT FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT
 );
+
+Create table Usuario(
+idUsuario INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+login TEXT NOT NULL,
+senha TEXT NOT NULL
+);
+
+create table Avaliacao(
+idavaliacao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+avaliacao varchar(10) NOT NULL
+);
+
+insert into avaliacao values  (Gostei);
+insert into avaliacao values (Desgostei);
+insert into avaliacao values (Indiferente);
+
+
+
+CREATE TABLE Avaliacao_Cardapio ( 
+idAvaliacao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+cardapioCumprido boolean NOT NULL,
+id_refeicao INTEGER NOT NULL, 
+data date NOT NULL, 
+idavaliacao INTEGER NOT null, 
+idUsuario  Integer NOT NULL
+CONSTRAINT FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario) ON DELETE RESTRICT,
+CONSTRAINT FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,
+CONSTRAINT FOREIGN KEY (idAvaliaco) REFERENCES Avaliacao (idAvaliacao) ON DELETE RESTRICT
+ );

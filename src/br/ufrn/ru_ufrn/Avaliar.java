@@ -58,20 +58,17 @@ public class Avaliar extends Activity {
 
 		try {
 			avaliacao = avController.getUltimaAvaliacao(user,
-					new Date(System.currentTimeMillis()));
+					new Date());
 			if (avaliacao != null) {
 
 				RadioButton ns = null;
-				if (avaliacao.getNivelSatisfacao().toString()
-						.equals(NivelSatisfacao.DESGOSTEI.toString())) {
+				if (avaliacao.getIdAvaliacao() == 1) {
 					ns = (RadioButton) findViewById(R.id.rbDesgostei);
 					ns.setChecked(true);
-				} else if (avaliacao.getNivelSatisfacao().toString()
-						.equals(NivelSatisfacao.GOSTEI.toString())) {
+				} else if (avaliacao.getIdAvaliacao() == 0) {
 					ns = (RadioButton) findViewById(R.id.rbGostei);
 					ns.setChecked(true);
-				} else if (avaliacao.getNivelSatisfacao().toString()
-						.equals(NivelSatisfacao.INDIFERENTE.toString())) {
+				} else if (avaliacao.getIdAvaliacao() == 2) {
 					ns = (RadioButton) findViewById(R.id.rbIndiferente);
 					ns.setChecked(true);
 				}
@@ -143,32 +140,32 @@ public class Avaliar extends Activity {
 		// Is the button now checked?
 		boolean checked = ((RadioButton) view).isChecked();
 
-		NivelSatisfacao nivelSatisfacao = null;
+		int idAvaliacao = -1 ;
 
 		// Check which radio button was clicked
 		switch (view.getId()) {
 
 		case R.id.rbGostei:
 			if (checked) {
-				nivelSatisfacao = NivelSatisfacao.GOSTEI;
+				idAvaliacao = 0;
 			}
 
 			break;
 		case R.id.rbDesgostei:
 			if (checked) {
-				nivelSatisfacao = NivelSatisfacao.DESGOSTEI;
+				idAvaliacao = 2;
 			}
 			break;
 
 		case R.id.rbIndiferente:
 			if (checked) {
-				nivelSatisfacao = NivelSatisfacao.INDIFERENTE;
+				idAvaliacao = 1;
 			}
 			break;
 
 		}
 
-		avaliacao.setNivelSatisfacao(nivelSatisfacao);
+		avaliacao.setIdAvaliacao(idAvaliacao);
 
 	}
 
@@ -236,9 +233,9 @@ public class Avaliar extends Activity {
 			private void realizarAvaliacao() throws ValorNuloException,
 					ValorInvalidoException, DAOException {
 
-				avaliacao.setData(new Date(System.currentTimeMillis()));
+				avaliacao.setData(new Date());
 				avaliacao.setIdUsuario(1L);
-				avaliacao.setRefeicao(avaliacao.ALMOCO_CARNIVORO);
+				avaliacao.setIdRefeicao(0);
 
 				avController.avaliarRefeicao(avaliacao);
 

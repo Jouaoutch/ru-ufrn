@@ -11,8 +11,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public abstract class GenericSQLiteDAO2 {
 	
-	private final SQLiteDAO sqLiteDAO;
-	private SQLiteDatabase database;
+	protected final SQLiteDAO sqLiteDAO;
+	protected SQLiteDatabase database;
 
 	
 	public GenericSQLiteDAO2( Context context){

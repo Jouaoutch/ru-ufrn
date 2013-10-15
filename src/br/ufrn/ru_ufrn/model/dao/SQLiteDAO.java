@@ -57,9 +57,12 @@ public class SQLiteDAO extends SQLiteOpenHelper {
 		db.execSQL(createTableAvaliacaoRefeicao);
 		db.execSQL(insertAvaliacao);
 		//tira isso depois
-		db.execSQL("insert into usuario values (jorge, jorge);");
-		db.execSQL("insert into usuario values (jorge, jorge);");
-		
+		db.execSQL("insert into Usuario values ('jorge', 'jorge');");
+		db.execSQL("insert into Usuario values ('jorge', 'jorge');");
+		db.execSQL("insert into Refeicao values ('almoço','almoço vegetariano');");
+		db.execSQL("insert into Avaliacao values(Gostei);");
+		db.execSQL("insert into Avaliacao values(Desgostei);");
+		db.execSQL("insert into Avaliacao values(Indiferente);");
 
 	}
 

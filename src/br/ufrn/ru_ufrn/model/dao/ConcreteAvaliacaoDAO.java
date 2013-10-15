@@ -13,64 +13,43 @@ import br.ufrn.ru_ufrn.model.NivelSatisfacao;
 import br.ufrn.ru_ufrn.model.ResultadoAvaliacoes;
 import br.ufrn.ru_ufrn.model.Usuario;
 
-public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
-		AvaliacaoDAO {
+public class ConcreteAvaliacaoDAO extends GenericSQLiteDAO2 implements AvaliacaoDAO{
 
-	private static final String name = "RU_UFRN";
-	private static final int version = 1;
-	private static final String createTable = "CREATE TABLE avaliacoes ("
-			+ " idAvaliacao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-			+ "cardapioCumprido boolean NOT NULL, " + "refeicao varchar(20), "
-			+ "data date NOT NULL, " + "avaliacao varchar(10) NOT NULL, "
-			+ "idUsuario  Integer NOT NULL );";
-
-	private SQLiteDatabase database;
-
+	
 	public ConcreteAvaliacaoDAO(Context context) {
-		super(context, name, null, version);
+		super(context);
 	}
 
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(createTable);
-
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-	}
-
-	@Override
+	
 	public void avaliarRefeicao(Avaliacao avaliacao) throws DAOException {
 		ContentValues values = new ContentValues(5);
 
 		values.put("cardapioCumprido", avaliacao.isCardapioCumprido());
-		values.put("refeicao", avaliacao.getRefeicao());
+		values.put("idRefeicao", avaliacao.getIdRefeicao());
 		values.put("data", avaliacao.getDataFormatoAmericano());
-		values.put("avaliacao", avaliacao.getNivelSatisfacao().toString());
+		values.put("idAvaliacao", avaliacao.getIdAvaliacao());
 		values.put("idUsuario", avaliacao.getIdUsuario());
 
-		database = this.getWritableDatabase();
+		database = sqLiteDAO.getDatabaseWrite();
 
-		database.insert("avaliacoes", null, values);
+		database.insert("Avaliacao_Cardapio", null, values);
 
 		database.close();
 
 	}
 
-	@Override
+
 	public Avaliacao getUltimaAvaliacao(Usuario user, Date data)
 			throws DAOException {
 
 		Avaliacao av = null;
 
-		database = this.getReadableDatabase();
+		database = sqLiteDAO.getReadableDatabase();
 
 		try {
 			// recupera todas as avaliações do usuário durante o dia e
 			Cursor cursor = database.rawQuery(
-					"Select * from avaliacoes where idUsuario = '"
+					"Select * from Avaliacao_Cardapio where idUsuario = '"
 							+ user.getId() + "' and data = '" + data.getYear()
 							+ "-" + data.getMonth() + "-" + data.getDay()
 							+ "' order by idavaliacao" + " asc", null);
@@ -78,13 +57,13 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 			// move o cursor para a ultima avaliação recuperada
 			if (cursor.moveToLast()) {
 				av = new Avaliacao();
-				av.setIdAvaliacao(cursor.getLong(0));
+				av.setIdAvaliacao(cursor.getInt(0));
 				av.setCardapioCumprido(cursor.getInt(1) == 1);
-				av.setRefeicao(cursor.getString(2));
+				av.setIdRefeicao(cursor.getInt(2));
 				String dt[] = cursor.getString(3).split("-");
 				av.setData(new Date(Integer.parseInt(dt[0]), Integer
 						.parseInt(dt[1]), Integer.parseInt(dt[2])));
-				av.setNivelSatisfacao(cursor.getString(4));
+				av.setIdAvaliacao(cursor.getInt(4));
 				av.setIdUsuario(cursor.getLong(5));
 
 			}
@@ -97,21 +76,21 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 		return av;
 	}
 
-	@Override
-	public ResultadoAvaliacoes getResultadoAvaliacoes(Date data, String refeicao)
+	
+	public ResultadoAvaliacoes getResultadoAvaliacoes(Date data, int idRefeicao)
 			throws DAOException {
 
 		ResultadoAvaliacoes resultAv = new ResultadoAvaliacoes();
 
-		database = this.getReadableDatabase();
+		database = sqLiteDAO.getReadableDatabase();
 
 		Cursor cursor = database
 				.rawQuery(
 						"select  COUNT(avaliacao) as numAvaliacoes, avaliacao "
-								+ " from avaliacoes group by avaliacao, refeicao having data = '"
+								+ " from Avaliacao_Cardapio group by avaliacao, refeicao having data = '"
 								+ data.getYear() + "-" + data.getMonth() + "-"
-								+ data.getDay() + "' and refeicao = '"
-								+ refeicao + "'", null);
+								+ data.getDay() + "' and idRefeicao = '"
+								+ idRefeicao + "'", null);
 
 		while (cursor.moveToNext()) {
 
@@ -129,7 +108,7 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 		}
 
 		resultAv.setData(data);
-		resultAv.setRefeicao(refeicao);
+		resultAv.setiDrefeicao(idRefeicao);
 		resultAv.setTotaVotos(resultAv.getDesgostaram()
 				+ resultAv.getGostaram() + resultAv.getIndiferente());
 
@@ -138,19 +117,20 @@ public class ConcreteAvaliacaoDAO extends SQLiteOpenHelper implements
 
 	}
 
-	@Override
+
 	public void atualizarAvaliação(Avaliacao avaliacao) throws DAOException {
 
 		ContentValues values = new ContentValues(5);
 
 		values.put("cardapioCumprido", avaliacao.isCardapioCumprido());
-		values.put("avaliacao", avaliacao.getNivelSatisfacao().toString());
+		values.put("idAvaliacao", avaliacao.getIdAvaliacao());
 
-		database = this.getWritableDatabase();
+		database = sqLiteDAO.getReadableDatabase();
 
 		String args[] = { String.valueOf(avaliacao.getIdAvaliacao()),
 				String.valueOf(avaliacao.getIdUsuario()) };
-		database.update("avaliacoes", values,
+		
+		database.update("Avaliacao_Cardapio", values,
 				"IdAvaliacao = ? and idUsuario = ?", args);
 
 		database.close();

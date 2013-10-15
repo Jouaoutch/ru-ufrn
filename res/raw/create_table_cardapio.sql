@@ -43,9 +43,9 @@ idavaliacao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 avaliacao varchar(10) NOT NULL
 );
 
-insert into avaliacao values  (Gostei);
-insert into avaliacao values (Desgostei);
-insert into avaliacao values (Indiferente);
+insert into Avaliacao values  (Gostei);
+insert into Avaliacao values (Desgostei);
+insert into Avaliacao values (Indiferente);
 
 
 

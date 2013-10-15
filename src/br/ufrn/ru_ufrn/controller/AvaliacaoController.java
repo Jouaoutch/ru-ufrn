@@ -30,20 +30,20 @@ public class AvaliacaoController {
 			throw new ValorInvalidoException("IdUsuario less than 0");
 		}
 
-		if (avaliacao.getNivelSatisfacao() == null) {
+		if (avaliacao.getIdAvaliacao() == null) {
 			throw new ValorNuloException("NivelStisfacao is null");
 		}
 
-		if (avaliacao.getRefeicao() == null) {
+		if (avaliacao.getIdRefeicao() == null) {
 			throw new ValorNuloException("Refeicao is null");
 		}
 		
-		if(! (avaliacao.getRefeicao().equals(Avaliacao.ALMOCO_CARNIVORO) || avaliacao.getRefeicao().equals(Avaliacao.ALMOCO_VEGETARIANO) 
+		/*if(! (avaliacao.getIdRefeicao().equals(Avaliacao.ALMOCO_CARNIVORO) || avaliacao.getRefeicao().equals(Avaliacao.ALMOCO_VEGETARIANO) 
 				|| avaliacao.getRefeicao().equals(Avaliacao.CAFE) || avaliacao.getRefeicao().equals(Avaliacao.JANTAR_CARNIVORO)
 				|| avaliacao.getRefeicao().equals(Avaliacao.JANTAR_VEGETARIANO)) ){
 			
 			throw new ValorInvalidoException("refeição invalid: "+avaliacao.getRefeicao());
-		}
+		}*/
 
 		return true;
 	}

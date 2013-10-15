@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ResultadoAvaliacoes {
 
-	private String refeicao;
+	private int iDrefeicao;
 	private int gostaram;
 	private int desgostaram;
 	private int indiferente;
@@ -19,12 +19,13 @@ public class ResultadoAvaliacoes {
 		this.data = data;
 	}
 
-	public String getRefeicao() {
-		return refeicao;
+
+	public int getiDrefeicao() {
+		return iDrefeicao;
 	}
 
-	public void setRefeicao(String refeicao) {
-		this.refeicao = refeicao;
+	public void setiDrefeicao(int iDrefeicao) {
+		this.iDrefeicao = iDrefeicao;
 	}
 
 	public int getGostaram() {

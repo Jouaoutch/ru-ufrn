@@ -11,7 +11,7 @@ public interface AvaliacaoDAO {
 	
 	void avaliarRefeicao(Avaliacao avaliacao) throws DAOException;
 	
-	ResultadoAvaliacoes getResultadoAvaliacoes(Date data, String refeicao) throws DAOException;
+	ResultadoAvaliacoes getResultadoAvaliacoes(Date data, int idRefeicao) throws DAOException;
 
 	Avaliacao getUltimaAvaliacao(Usuario user, Date data) throws DAOException;
 	

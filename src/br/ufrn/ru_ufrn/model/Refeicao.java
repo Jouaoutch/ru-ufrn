@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Refeicao extends Model{
-		public String nome;
+		private String nome;
 		private int tipo;
 		public final List<Alimento> itens = new ArrayList<Alimento>();
 		
 		public Refeicao(String nome, int tipo) {
 			super();
-			this.nome = nome;
-			this.tipo = tipo;
+			this.setNome(nome);
+			this.setTipo(tipo);
 		}
 		
 		public Refeicao(String nome) {
 			super();
-			this.nome = nome;
+			this.setNome(nome);
 		}
 		
 		public void adicionarAlimento(Alimento item){
@@ -29,6 +29,22 @@ public class Refeicao extends Model{
 		
 		public List<Alimento> getItens(){
 			return this.itens;
+		}
+
+		public String getNome() {
+			return nome;
+		}
+
+		public void setNome(String nome) {
+			this.nome = nome;
+		}
+
+		public int getTipo() {
+			return tipo;
+		}
+
+		public void setTipo(int tipo) {
+			this.tipo = tipo;
 		}
 		
 }

@@ -1,37 +1,26 @@
 package br.ufrn.ru_ufrn.model.dao;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-import br.ufrn.ru_ufrn.R;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import br.ufrn.ru_ufrn.exceptions.DAOException;
 import br.ufrn.ru_ufrn.model.Alimento;
 import br.ufrn.ru_ufrn.model.Cardapio;
 import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 
-public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
+public class CardapioSQLiteDAO implements CardapioDAO {
 
-	private static final String DATABASE_NAME = "RU_UFRN";
-	private static final int DATABASE_VERSION = 1;
 
-	private SQLiteDatabase database;
 	private Context context;
-	private String createTable = "";
+	private GenericSQLiteDAO gSqLiteDAO;
+	
 	public CardapioSQLiteDAO(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;
-		// TODO Auto-generated constructor stub
 	}
+
 
 	@Override
 	public Cardapio findById(Class<Cardapio> classe, Integer id)
@@ -41,13 +30,82 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase db) {
-		// createTable = carregarArquivoSQL();
-		db.execSQL(createTable);
+	public List<Cardapio> findAll(Class<Cardapio> classe) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Cardapio save(Cardapio cardapio) throws DAOException {
+		Cardapio output = null;
+		if(cardapio != null){
+			if(cardapio.getId() == null){
+				gSqLiteDAO = new GenericSQLiteDAO(this.context);
+				ContentValues values = new ContentValues(1);
+				values.put("data", cardapio.getData().toString());
+				SQLiteEntity sqLiteEntity = new SQLiteEntity();
+				sqLiteEntity.setTableName("Cardapio");
+				sqLiteEntity.setValues(values);				
+				
+				gSqLiteDAO.save(sqLiteEntity);
+				
+				cardapio.setId(sqLiteEntity.getIdSaved());
+				
+				RefeicaoSQLiteDAO refeicaoSQLiteDAO = new RefeicaoSQLiteDAO(this.context);				
+				
+				refeicaoSQLiteDAO.save(cardapio.getCafeDaManha());
+				refeicaoSQLiteDAO.save(cardapio.getAlmocoVegetariano());
+				refeicaoSQLiteDAO.save(cardapio.getAlmocoCarnivoro());
+				refeicaoSQLiteDAO.save(cardapio.getJantaVegetariana());
+				refeicaoSQLiteDAO.save(cardapio.getJantaCarnivora());
+				
+				relate(cardapio,cardapio.getCafeDaManha());
+				
+				
+			}
+			else{
+				this.update(cardapio);
+			}
+		}
+		
+		
+		
+
+		return output;
+	}
+
+	private void relate(Cardapio cardapio, Refeicao refeicao) throws DAOException {
+		ContentValues vtemp = new ContentValues(2);
+		vtemp.put("id_cardapio", cardapio.getId());
+		vtemp.put("id_refeicao", refeicao.getId());
+		SQLiteEntity etemp = new SQLiteEntity();
+		etemp.setTableName("Cardapio_Refeicao");
+		etemp.setValues(vtemp);
+		gSqLiteDAO.save(etemp);
+		
+	}
+
+
+	@Override
+	public Cardapio update(Cardapio entity) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void delete(Cardapio entity) throws DAOException {
+		// TODO Auto-generated method stub
 
 	}
 
-	private String carregarArquivoSQL() {
+	@Override
+	public Cardapio findByData(Date data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
+/*	private String carregarArquivoSQL() {
 		InputStream is = this.context.getResources().openRawResource(
 				R.raw.create_table_cardapio);
 		InputStreamReader isr = new InputStreamReader(is);
@@ -68,71 +126,8 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 		return sb.toString();
 
 	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<Cardapio> findAll(Class<Cardapio> classe) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cardapio save(Cardapio cardapio) throws DAOException {
-
-		if (cardapio.getCafeDaManha().getId() == null) {
-			save(cardapio.getCafeDaManha());
-		}
-
-		return null;
-	}
-
-	private void save(Refeicao refeicao) {
-		for (Iterator<Alimento> iterator = refeicao.getItens().iterator(); iterator
-				.hasNext();) {
-			Alimento alimento = iterator.next();
-			if (alimento.getId() == null) {
-				save(alimento);
-			}
-
-		}
-	}
-
-	private void save(Alimento alimento) {
-		ContentValues values = new ContentValues(3);
-
-		values.put("nome", alimento.getNome());
-		values.put("descricao", alimento.getDescricao());
-		values.put("imagem", alimento.getImagem());
-
-		this.database = this.getWritableDatabase();
-
-		this.database.insert("Alimento", null, values);
-
-		this.database.close();
-
-	}
-
-	@Override
-	public Cardapio update(Cardapio entity) throws DAOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(Cardapio entity) throws DAOException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Cardapio findByData(Date data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+*/
+	
+	
 
 }

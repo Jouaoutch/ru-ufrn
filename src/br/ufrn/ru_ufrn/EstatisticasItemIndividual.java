@@ -1,6 +1,6 @@
 package br.ufrn.ru_ufrn;
 
-import java.util.Date;
+import java.sql.Date;
 
 import br.ufrn.ru_ufrn.adapter.CardapioArrayAdapter;
 import br.ufrn.ru_ufrn.adapter.MyExpandableListAdapter;

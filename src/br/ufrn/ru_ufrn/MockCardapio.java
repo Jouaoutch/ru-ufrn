@@ -15,13 +15,13 @@ public class MockCardapio {
 	
 	private static Date data;
 	
-	public static void mock(CardapioDAO cmd, Date dt){
+	public static Cardapio mock(CardapioDAO cmd, Date dt){
 		data = dt;	
-		mock(cmd);
+		return mock(cmd);
 	}
 	
 
-	public static void mock(CardapioDAO cmd) {
+	public static Cardapio mock(CardapioDAO cmd) {
 		Refeicao refeicao;
 		Cardapio c = new Cardapio();
 		List<Alimento> listCafe = new ArrayList<Alimento>();
@@ -108,6 +108,7 @@ public class MockCardapio {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return c;
 
 	}
 

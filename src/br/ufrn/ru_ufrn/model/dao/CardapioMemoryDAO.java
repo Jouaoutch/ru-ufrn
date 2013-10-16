@@ -1,6 +1,6 @@
 package br.ufrn.ru_ufrn.model.dao;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Iterator;
 
 import br.ufrn.ru_ufrn.model.Cardapio;

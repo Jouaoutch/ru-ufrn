@@ -18,10 +18,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Spinner
-        android:id="@+id/spinner_refeicoes"
+        android:id="@+id/spinner_dias_semana"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/refeicoes" />
+        android:entries="@array/dias_semana" />
 
     <TextView
         android:id="@+id/textView_cardapio_itens"

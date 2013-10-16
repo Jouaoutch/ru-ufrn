@@ -1,12 +1,11 @@
 package br.ufrn.ru_ufrn.model.dao;
 
-import java.util.Date;
-import java.util.Iterator;
+import java.sql.Date;
 import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import br.ufrn.ru_ufrn.exceptions.DAOException;
-import br.ufrn.ru_ufrn.model.Alimento;
 import br.ufrn.ru_ufrn.model.Cardapio;
 import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
@@ -31,7 +30,20 @@ public class CardapioSQLiteDAO implements CardapioDAO {
 
 	@Override
 	public List<Cardapio> findAll(Class<Cardapio> classe) throws DAOException {
-		// TODO Auto-generated method stub
+		String query = "SELECT * FROM Cardapio;";
+		SQLiteEntity entity = new SQLiteEntity();
+		entity.setQuery(query);
+		gSqLiteDAO = new GenericSQLiteDAO(this.context);
+		gSqLiteDAO.query(entity);
+		
+		if(entity.getResult() != null){
+			if(entity.getResult().moveToFirst()){
+				do{
+					//Cursor = entity.getResult().g
+				}
+					while(entity.getResult().moveToNext());			}
+		}
+		
 		return null;
 	}
 

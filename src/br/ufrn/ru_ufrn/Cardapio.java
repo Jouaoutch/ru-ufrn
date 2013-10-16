@@ -1,7 +1,10 @@
 package br.ufrn.ru_ufrn;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.sql.Date;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -11,14 +14,17 @@ import android.util.SparseArray;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import br.ufrn.ru_ufrn.adapter.CardapioArrayAdapter;
 import br.ufrn.ru_ufrn.adapter.MyExpandableListAdapter;
+import br.ufrn.ru_ufrn.controller.CardapioController;
 import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 import br.ufrn.ru_ufrn.model.dao.CardapioSQLiteDAO;
@@ -39,6 +45,8 @@ public class Cardapio extends Activity {
 	private SparseArray<Refeicao> groups = new SparseArray<Refeicao>();
 	private br.ufrn.ru_ufrn.model.Cardapio cardapio;
 	private RatingBar ratingBar;
+	private HashMap<String, br.ufrn.ru_ufrn.model.Cardapio> cardapioDaSemana;
+	private CardapioController controller;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +56,40 @@ public class Cardapio extends Activity {
 		setCurrentDateOnView();
 		addListenerOnButton();
 
-		//daofact = new SQLiteDAOFactory();
-		//cardapiodao = new CardapioSQLiteDAO(this);
-		CardapioDAO cardapiodao = new CardapioSQLiteDAO(this);
-		//dao.bootstrap();
-		java.sql.Date data = new java.sql.Date(new Date().getTime());
-		MockCardapio.mock(cardapiodao, data);
-		//cardapio = cardapiodao.findByData(new Date());
+		controller = new CardapioController(this);
+		String[] semana = { "Segunda", "Terça", "Quarta", "Quinta", "Sexta" };
 
-		// setCardapioItens();
-		//createData();
-		//setCardapioExpadableItens();
+		List<br.ufrn.ru_ufrn.model.Cardapio> temp = controller
+				.getCardapiosDaSemana();
+
+		for (int i = 0; i < semana.length; i++) {
+			cardapioDaSemana.put(semana[i], temp.get(i));
+		}
+
+		Spinner spinnerDiasSemana = (Spinner) findViewById(R.id.spinner_dias_semana);
+		spinnerDiasSemana
+				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+					@Override
+					public void onItemSelected(AdapterView<?> parent,
+							View view, int pos, long id) {
+						String dia = (String) parent.getItemAtPosition(pos);
+						br.ufrn.ru_ufrn.model.Cardapio temp = cardapioDaSemana.get(dia);
+						createData(temp);
+						setCardapioExpadableItens();
+					}
+
+					@Override
+					public void onNothingSelected(AdapterView<?> arg0) {
+						// TODO Auto-generated method stub
+
+					}
+
+				});
+
 	}
 
-	private void createData() {
+	private void createData(br.ufrn.ru_ufrn.model.Cardapio cardapio) {
 		groups.append(br.ufrn.ru_ufrn.model.Cardapio.CAFE_DA_MANHA,
 				cardapio.getCafeDaManha());
 		groups.append(br.ufrn.ru_ufrn.model.Cardapio.ALMOCO_VEGETARIANO,
@@ -82,9 +110,8 @@ public class Cardapio extends Activity {
 		listView.setAdapter(adapter);
 	}
 
-	private void setCardapioItens() {
-		br.ufrn.ru_ufrn.model.Cardapio temp = cardapiodao
-				.findByData(new Date());
+	private void setCardapioItens(br.ufrn.ru_ufrn.model.Cardapio cardapio) {
+		br.ufrn.ru_ufrn.model.Cardapio temp = cardapio;
 		cardapioItens = (TextView) findViewById(R.id.textView_cardapio_itens);
 		cardapioItens.setText(temp.toString());
 
@@ -106,7 +133,8 @@ public class Cardapio extends Activity {
 			@Override
 			public void onClick(View v) {
 				DatePickerFragment newFragment = new DatePickerFragment();
-				newFragment.setData((TextView) findViewById(R.id.textView_data_atual));
+				newFragment
+						.setData((TextView) findViewById(R.id.textView_data_atual));
 				newFragment.show(getFragmentManager(), "datePicker");
 
 			}
@@ -135,7 +163,5 @@ public class Cardapio extends Activity {
 		return true;
 
 	}
-
-	
 
 }

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Qual seu nível de satisfação com a refeição abaixo?"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
     <TextView
@@ -65,7 +65,8 @@
         android:id="@+id/name_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="\nO cardápio do dia foi cumprido?\n" />
+        android:text="\nO cardápio do dia foi cumprido?" 
+        android:textStyle="bold"/>
 
     <RadioGroup
         android:id="@+id/radioGroup2"

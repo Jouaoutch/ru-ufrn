@@ -40,7 +40,7 @@
             android:label="@string/title_activity_testes" >
         </activity>
         <activity
-            android:name="br.ufrn.ru_ufrn.Comentario"
+            android:name="br.ufrn.ru_ufrn.Comentar"
             android:label="@string/title_activity_comentario" >
         </activity>
         <activity

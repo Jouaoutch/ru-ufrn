@@ -60,3 +60,12 @@ CONSTRAINT FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario) ON DELETE RESTR
 CONSTRAINT FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,
 CONSTRAINT FOREIGN KEY (idAvaliaco) REFERENCES Avaliacao (idAvaliacao) ON DELETE RESTRICT
  );
+
+Create table Comentario (
+id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+idUsuario  NOT NULL,
+comentario TEXT not null,
+image TEXT,
+CONSTRAINT FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario) ON DELETE RESTRICT
+);
+

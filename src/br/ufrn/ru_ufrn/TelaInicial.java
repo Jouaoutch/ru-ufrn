@@ -49,7 +49,7 @@ public class TelaInicial extends Activity implements OnClickListener {
 			exibirActivity(EstatisticasCardapio.class);
 			return;
 		case R.id.button_comentarios:
-			exibirActivity(Comentario.class);
+			exibirActivity(Comentar.class);
 			return;
 		default:
 			return;

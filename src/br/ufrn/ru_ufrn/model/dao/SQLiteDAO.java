@@ -9,8 +9,7 @@ public class SQLiteDAO extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "RU_UFRN";
 	private static final int DATABASE_VERSION = 1;
-	
-	
+
 	private final String createTableRefeicao = "CREATE TABLE Refeicao"
 			+ " (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,nome TEXT NOT NULL,tipo TEXT NOT NULL);";
 
@@ -35,11 +34,16 @@ public class SQLiteDAO extends SQLiteOpenHelper {
 			+ "boolean NOT NULL,id_refeicao INTEGER NOT NULL, data date NOT NULL, idavaliacao INTEGER NOT null, idUsuario  Integer NOT NULL , FOREIGN KEY (idUsuario)"
 			+ " REFERENCES Usuario(idUsuario) ON DELETE RESTRICT,  FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,  FOREIGN KEY (idAvaliacao) REFERENCES Avaliacao (idAvaliacao) ON DELETE RESTRICT );";
 
-	/*private final String insertAvaliacao = "insert into Avaliacao values  (Gostei);"
-			+ "insert into Avaliacao values (Desgostei);"
-			+ "insert into Avaliacao values (Indiferente);";
-	*/
-	
+	private final String createTableComentario = "Create table Comentario (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,idUsuario  NOT NULL,comentario Integer not null,image TEXT,FOREIGN KEY (idUsuario) "
+			+ "REFERENCES Usuario(idUsuario) ON DELETE RESTRICT);";
+
+	/*
+	 * private final String insertAvaliacao =
+	 * "insert into Avaliacao values  (Gostei);" +
+	 * "insert into Avaliacao values (Desgostei);" +
+	 * "insert into Avaliacao values (Indiferente);";
+	 */
+
 	public SQLiteDAO(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
@@ -55,8 +59,9 @@ public class SQLiteDAO extends SQLiteOpenHelper {
 		db.execSQL(createTableUsuario);
 		db.execSQL(createTableAvaliacao);
 		db.execSQL(createTableAvaliacaoRefeicao);
-		//db.execSQL(insertAvaliacao);
-		//tira isso depois
+		db.execSQL(createTableComentario);
+		// db.execSQL(insertAvaliacao);
+		// tira isso depois
 		db.execSQL("insert into Usuario (login, senha) values ('jorge', 'jorge');");
 		db.execSQL("insert into Refeicao (nome, tipo) values ('almoço','almoço vegetariano');");
 		db.execSQL("insert into Avaliacao (avaliacao) values('Gostei');");
@@ -70,13 +75,10 @@ public class SQLiteDAO extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 
 	}
-	
-	
+
 	public SQLiteDatabase getDatabaseWrite() {
 		return this.getWritableDatabase();
 	}
-
-	
 
 	public SQLiteDatabase getDatabaseRead() {
 		return this.getReadableDatabase();

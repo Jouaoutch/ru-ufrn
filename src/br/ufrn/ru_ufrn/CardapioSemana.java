@@ -52,7 +52,7 @@ public class CardapioSemana extends Activity {
 	        	exibirActivity(AvaliarItemIndividual.class);
 	            return true;
 	        case R.id.menucomentario:
-	        	exibirActivity(Comentario.class);
+	        	exibirActivity(Comentar.class);
 	            return true;
 	        case R.id.menuVisualizarAvItem:
 	        	exibirActivity(EstatisticasItemIndividual.class);

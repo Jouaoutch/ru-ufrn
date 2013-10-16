@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.ufrn.ru_ufrn.R;
+import br.ufrn.ru_ufrn.model.Comentario;
 import br.ufrn.ru_ufrn.model.ItemListView;
 
 //http://diegorubin.com/2012/02/17/desenvolvimento-para-android-utilizando-uma-listview
@@ -26,24 +27,24 @@ import br.ufrn.ru_ufrn.model.ItemListView;
 public class AdapterListView extends BaseAdapter {
 
 	private LayoutInflater mInflater;
-	private List<ItemListView> itens;
+	private List<Comentario> comentarios;
 	private int imagem;
 	private View view;
 
-	public AdapterListView(Context context, List<ItemListView> itens, View view) {
+	public AdapterListView(Context context, List<Comentario> comentarios, View view) {
 		// Itens do listview
-		this.itens = itens;
+		this.comentarios = comentarios;
 		// Objeto responsável por pegar o Layout do item.
 		mInflater = LayoutInflater.from(context);
 		this.view = view;
 	}
 
 	public int getCount() {
-		return itens.size();
+		return comentarios.size();
 	}
 
-	public ItemListView getItem(int position) {
-		return itens.get(position);
+	public Comentario getItem(int position) {
+		return comentarios.get(position);
 	}
 
 	public long getItemId(int position) {
@@ -74,10 +75,10 @@ public class AdapterListView extends BaseAdapter {
 
 		// pega os dados da lista
 		// e define os valores nos itens.
-		ItemListView item = itens.get(position);
-		itemHolder.txtTitle.setText(item.getTexto());
-		itemHolder.imgIcon.setImageResource(item.getImage());
-		itemHolder.user.setText(item.getUsuario());
+		Comentario comentario = comentarios.get(position);
+		itemHolder.txtTitle.setText(comentario.getComentario());
+		itemHolder.imgIcon.setImageResource(comentario.getImagem());
+		itemHolder.user.setText(comentario.getUsuario());
 		
 		
 

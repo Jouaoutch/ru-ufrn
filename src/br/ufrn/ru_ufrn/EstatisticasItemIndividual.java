@@ -40,7 +40,7 @@ public class EstatisticasItemIndividual extends Activity {
 		cardapiodao = daofact.getCardapioDAO();
 
 		new MockCardapio().mock(cardapiodao);
-		cardapio = cardapiodao.findByData(new Date());
+		cardapio = cardapiodao.findByData(new Date(System.currentTimeMillis()));
 		
 		createData();
 		setCardapioExpadableItens();
@@ -116,7 +116,7 @@ public void exibirActivity(Class classe){
 		        	exibirActivity(EstatisticasCardapio.class);
 		            return true;
 		        case R.id.menucomentario:
-		        	exibirActivity(Comentario.class);
+		        	exibirActivity(Comentar.class);
 		            return true;
 		        default:
 		            return super.onOptionsItemSelected(item);

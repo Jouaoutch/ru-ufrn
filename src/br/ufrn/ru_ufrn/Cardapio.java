@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import br.ufrn.ru_ufrn.adapter.CardapioArrayAdapter;
 import br.ufrn.ru_ufrn.adapter.MyExpandableListAdapter;
 import br.ufrn.ru_ufrn.controller.CardapioController;
@@ -45,7 +46,7 @@ public class Cardapio extends Activity {
 	private SparseArray<Refeicao> groups = new SparseArray<Refeicao>();
 	private br.ufrn.ru_ufrn.model.Cardapio cardapio;
 	private RatingBar ratingBar;
-	private HashMap<String, br.ufrn.ru_ufrn.model.Cardapio> cardapioDaSemana;
+	private final HashMap<String, br.ufrn.ru_ufrn.model.Cardapio> cardapioDaSemana = new HashMap<String, br.ufrn.ru_ufrn.model.Cardapio>();
 	private CardapioController controller;
 
 	@Override
@@ -62,8 +63,14 @@ public class Cardapio extends Activity {
 		List<br.ufrn.ru_ufrn.model.Cardapio> temp = controller
 				.getCardapiosDaSemana();
 
-		for (int i = 0; i < semana.length; i++) {
-			cardapioDaSemana.put(semana[i], temp.get(i));
+		if (temp == null) {
+			Toast.makeText(this, "Sem cardapios da semana!", Toast.LENGTH_LONG)
+					.show();
+		} else {
+
+			for (int i = 0; i < semana.length; i++) {
+				cardapioDaSemana.put(semana[i], temp.get(i));
+			}
 		}
 
 		Spinner spinnerDiasSemana = (Spinner) findViewById(R.id.spinner_dias_semana);
@@ -74,7 +81,8 @@ public class Cardapio extends Activity {
 					public void onItemSelected(AdapterView<?> parent,
 							View view, int pos, long id) {
 						String dia = (String) parent.getItemAtPosition(pos);
-						br.ufrn.ru_ufrn.model.Cardapio temp = cardapioDaSemana.get(dia);
+						br.ufrn.ru_ufrn.model.Cardapio temp = cardapioDaSemana
+								.get(dia);
 						createData(temp);
 						setCardapioExpadableItens();
 					}

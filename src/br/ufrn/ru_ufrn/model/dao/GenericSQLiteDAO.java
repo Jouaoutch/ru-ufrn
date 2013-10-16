@@ -142,7 +142,7 @@ public class GenericSQLiteDAO extends SQLiteOpenHelper {
 		} catch (Exception e) {
 			throw new DAOException(e.getMessage());
 		} finally {
-			database.close();
+			//database.close();
 		}
 
 		return max;

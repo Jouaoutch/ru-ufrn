@@ -13,15 +13,15 @@ import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 
 public class MockCardapio {
 	
-	private  Date data;
+	private static Date data;
 	
-	public  void mock(CardapioDAO cmd, Date dt){
+	public static void mock(CardapioDAO cmd, Date dt){
 		data = dt;	
 		mock(cmd);
 	}
 	
 
-	public  void mock(CardapioDAO cmd) {
+	public static void mock(CardapioDAO cmd) {
 		Refeicao refeicao;
 		Cardapio c = new Cardapio();
 		List<Alimento> listCafe = new ArrayList<Alimento>();

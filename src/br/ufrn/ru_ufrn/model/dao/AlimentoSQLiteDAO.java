@@ -44,7 +44,7 @@ public class AlimentoSQLiteDAO implements AlimentoDAO {
 				values.put("descricao", alimento.getDescricao());
 				values.put("imagem", alimento.getImagem());				
 				SQLiteEntity sqLiteEntity = new SQLiteEntity();
-				sqLiteEntity.setTableName("Refeicao");
+				sqLiteEntity.setTableName("Alimento");
 				sqLiteEntity.setValues(values);				
 				
 				gSqLiteDAO.save(sqLiteEntity);

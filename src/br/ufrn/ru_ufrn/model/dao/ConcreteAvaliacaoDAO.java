@@ -13,25 +13,26 @@ import br.ufrn.ru_ufrn.model.NivelSatisfacao;
 import br.ufrn.ru_ufrn.model.ResultadoAvaliacoes;
 import br.ufrn.ru_ufrn.model.Usuario;
 
-public class ConcreteAvaliacaoDAO extends GenericSQLiteDAO2 implements AvaliacaoDAO{
+public class ConcreteAvaliacaoDAO implements AvaliacaoDAO{
 
-	
+	private GenericSQLiteDAO sqLiteDAO;
+	private SQLiteDatabase database;
 	
 	public ConcreteAvaliacaoDAO(Context context) {
-		super(context);
+		sqLiteDAO = new GenericSQLiteDAO(context);
 	}
 
 	
 	public void avaliarRefeicao(Avaliacao avaliacao) throws DAOException {
 		ContentValues values = new ContentValues(5);
 
-		values.put("cardapioCumprido", avaliacao.isCardapioCumprido());
+		values.put("cardapio_cumprido", avaliacao.isCardapioCumprido());
 		values.put("id_refeicao", avaliacao.getIdRefeicao());
 		values.put("data", avaliacao.getDataFormatoAmericano());
-		values.put("idAvaliacao", avaliacao.getIdAvaliacao());
-		values.put("idUsuario", avaliacao.getIdUsuario());
+		values.put("id_avaliacao", avaliacao.getIdAvaliacao());
+		values.put("id_usuario", avaliacao.getIdUsuario());
 
-		database = sqLiteDAO.getDatabaseWrite();
+		database = sqLiteDAO.getWritableDatabase();
 
 		database.insert("Avaliacao_Cardapio", null, values);
 
@@ -50,7 +51,7 @@ public class ConcreteAvaliacaoDAO extends GenericSQLiteDAO2 implements Avaliacao
 		try {
 			// recupera todas as avaliações do usuário durante o dia e
 			Cursor cursor = database.rawQuery(
-					"Select * from Avaliacao_Cardapio where idUsuario = '"
+					"Select * from Avaliacao_Cardapio where id_usuario = '"
 							+ user.getId() + "' and data = '" + data.getYear()
 							+ "-" + data.getMonth() + "-" + data.getDay()
 							+ "' order by id" + " asc", null);
@@ -123,8 +124,8 @@ public class ConcreteAvaliacaoDAO extends GenericSQLiteDAO2 implements Avaliacao
 
 		ContentValues values = new ContentValues(2);
 
-		values.put("cardapioCumprido", avaliacao.isCardapioCumprido());
-		values.put("idAvaliacao", avaliacao.getIdAvaliacao());
+		values.put("cardapio_cumprido", avaliacao.isCardapioCumprido());
+		values.put("id_avaliacao", avaliacao.getIdAvaliacao());
 
 		database = sqLiteDAO.getReadableDatabase();
 

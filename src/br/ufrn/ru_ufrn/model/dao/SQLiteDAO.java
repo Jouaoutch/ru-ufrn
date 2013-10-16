@@ -34,8 +34,8 @@ public class SQLiteDAO extends SQLiteOpenHelper {
 			+ "boolean NOT NULL,id_refeicao INTEGER NOT NULL, data date NOT NULL, idavaliacao INTEGER NOT null, idUsuario  Integer NOT NULL , FOREIGN KEY (idUsuario)"
 			+ " REFERENCES Usuario(idUsuario) ON DELETE RESTRICT,  FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,  FOREIGN KEY (idAvaliacao) REFERENCES Avaliacao (idAvaliacao) ON DELETE RESTRICT );";
 
-	private final String createTableComentario = "Create table Comentario (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,idUsuario  NOT NULL,comentario Integer not null,image TEXT,FOREIGN KEY (idUsuario) "
-			+ "REFERENCES Usuario(idUsuario) ON DELETE RESTRICT);";
+	private final String createTableComentario = "Create table Comentario (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,id_usuario  NOT NULL,comentario Integer not null,image TEXT,FOREIGN KEY (id_usuario) "
+			+ "REFERENCES Usuario(id_usuario) ON DELETE RESTRICT);";
 
 	/*
 	 * private final String insertAvaliacao =

@@ -1,7 +1,7 @@
 package br.ufrn.ru_ufrn;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 

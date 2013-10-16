@@ -9,6 +9,7 @@ public class SQLiteEntity {
 	private ContentValues values;
 	private String query;
 	private Cursor result ;
+	private Integer idSaved;
 	
 	public String getTableName() {
 		return tableName;
@@ -33,6 +34,12 @@ public class SQLiteEntity {
 	}
 	public void setResult(Cursor result) {
 		this.result = result;
+	}
+	public Integer getIdSaved() {
+		return idSaved;
+	}
+	public void setIdSaved(Integer idSaved) {
+		this.idSaved = idSaved;
 	}
 	
 	

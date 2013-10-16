@@ -13,8 +13,9 @@ import br.ufrn.ru_ufrn.model.NivelSatisfacao;
 import br.ufrn.ru_ufrn.model.ResultadoAvaliacoes;
 import br.ufrn.ru_ufrn.model.Usuario;
 
-public class ConcreteAvaliacaoDAO extends GenericSQLiteDAO2 implements AvaliacaoDAO{
+public class ConcreteAvaliacaoDAO extends GenericSQLiteDAO implements AvaliacaoDAO{
 
+	
 	
 	public ConcreteAvaliacaoDAO(Context context) {
 		super(context);

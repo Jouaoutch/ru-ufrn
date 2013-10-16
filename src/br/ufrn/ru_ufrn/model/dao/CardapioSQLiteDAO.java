@@ -26,12 +26,7 @@ public class CardapioSQLiteDAO extends SQLiteOpenHelper implements CardapioDAO {
 
 	private SQLiteDatabase database;
 	private Context context;
-	private String createTable = "CREATE TABLE Refeicao (	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,	nome TEXT NOT NULL,	tipo TEXT NOT NULL);"
-			+ "CREATE TABLE Alimento (	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,	nome TEXT NOT NULL,	descricao TEXT NOT NULL,	imagem TEXT);"
-			+ "CREATE TABLE Refeicao_Alimento (	id_refeicao INTEGER NOT NULL,	id_alimento INTEGER NOT NULL,	CONSTRAINT PRIMARY KEY(id_refeicao,id_alimento),	CONSTRAINT FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,	CONSTRAINT FOREIGN KEY (id_alimento) REFERENCES Alimento(id) ON DELETE RESTRICT);"
-			+ "CREATE TABLE Cardapio (	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,	data TEXT NOT NULL),"
-			+ "CREATE TABLE Cardapio_Refeicao (	id_cardapio INTEGER NOT NULL,	id_refeicao INTEGER NOT NULL,	CONSTRAINT PRIMARY KEY(id_cardapio, id_refeicao),	CONSTRAINT FOREIGN KEY (id_cardapio) REFERENCES Cardapio(id) ON DELETE RESTRICT,	CONSTRAINT FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT);";
-
+	private String createTable = "";
 	public CardapioSQLiteDAO(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;

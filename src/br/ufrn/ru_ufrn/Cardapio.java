@@ -23,6 +23,7 @@ import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 import br.ufrn.ru_ufrn.model.dao.CardapioSQLiteDAO;
 import br.ufrn.ru_ufrn.model.dao.DAOFactory;
+import br.ufrn.ru_ufrn.model.dao.GenericSQLiteDAO;
 import br.ufrn.ru_ufrn.model.dao.MemoryDAOFactory;
 import br.ufrn.ru_ufrn.model.dao.SQLiteDAOFactory;
 
@@ -48,14 +49,15 @@ public class Cardapio extends Activity {
 		addListenerOnButton();
 
 		//daofact = new SQLiteDAOFactory();
-		cardapiodao = new CardapioSQLiteDAO(this);
-
-		new MockCardapio().mock(cardapiodao, new Date());
-		cardapio = cardapiodao.findByData(new Date());
+		//cardapiodao = new CardapioSQLiteDAO(this);
+		GenericSQLiteDAO dao = new GenericSQLiteDAO(this);
+		dao.bootstrap();
+		//new MockCardapio().mock(cardapiodao, new Date());
+		//cardapio = cardapiodao.findByData(new Date());
 
 		// setCardapioItens();
-		createData();
-		setCardapioExpadableItens();
+		//createData();
+		//setCardapioExpadableItens();
 	}
 
 	private void createData() {

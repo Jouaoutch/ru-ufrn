@@ -3,13 +3,19 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
+    
+    <Spinner
+        android:id="@+id/spinner_refeicoes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/refeicoes" />
 
     <TextView
         android:id="@+id/name_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Qual seu nível de satisfação com a refeição de hoje?"
-        android:textSize="20sp"
+        android:text="Qual seu nível de satisfação com a refeição abaixo?"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <TextView

@@ -18,27 +18,27 @@ public class SQLiteDAO extends SQLiteOpenHelper {
 			+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,nome TEXT NOT NULL,descricao TEXT NOT NULL,imagem TEXT);";
 
 	private final String createTableRefeicao_Alimento = "CREATE TABLE Refeicao_Alimento (id_refeicao INTEGER NOT"
-			+ " NULL,id_alimento INTEGER NOT NULL,CONSTRAINT PRIMARY KEY(id_refeicao,id_alimento),CONSTRAINT FOREIGN KEY "
-			+ "(id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,CONSTRAINT FOREIGN KEY (id_alimento) REFERENCES Alimento(id) ON DELETE RESTRICT);";
+			+ " NULL,id_alimento INTEGER NOT NULL,  PRIMARY KEY(id_refeicao,id_alimento),  FOREIGN KEY "
+			+ "(id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,  FOREIGN KEY (id_alimento) REFERENCES Alimento(id) ON DELETE RESTRICT);";
 
 	private final String createTableCardapio = "CREATE TABLE Cardapio (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,data TEXT NOT NULL);";
 
 	private final String createTableCardapio_Refeicao = "CREATE TABLE Cardapio_Refeicao (id_cardapio INTEGER NOT NULL,id_refeicao INTEGER NOT NULL"
-			+ ",CONSTRAINT PRIMARY KEY(id_cardapio, id_refeicao),CONSTRAINT FOREIGN KEY (id_cardapio) REFERENCES Cardapio(id) ON DELETE RESTRICT,"
-			+ "CONSTRAINT FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT);";
+			+ ",  PRIMARY KEY(id_cardapio, id_refeicao),  FOREIGN KEY (id_cardapio) REFERENCES Cardapio(id) ON DELETE RESTRICT,"
+			+ "  FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT);";
 
 	private final String createTableUsuario = "Create table Usuario(idUsuario INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,login TEXT NOT NULL,senha TEXT NOT NULL);";
 
-	private final String createTableAvaliacao = "create table Avaliacao(idavaliacao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,avaliacao varchar(10) NOT NULL);";
+	private final String createTableAvaliacao = "create table Avaliacao(idAvaliacao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,avaliacao varchar(10) NOT NULL);";
 
-	private final String createTableAvaliacaoRefeicao = "CREATE TABLE Avaliacao_Cardapio ( idAvaliacao INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,cardapioCumprido "
-			+ "boolean NOT NULL,id_refeicao INTEGER NOT NULL, data date NOT NULL, idavaliacao INTEGER NOT null, idUsuario  Integer NOT NULLCONSTRAINT FOREIGN KEY (idUsuario)"
-			+ " REFERENCES Usuario(idUsuario) ON DELETE RESTRICT,CONSTRAINT FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,CONSTRAINT FOREIGN KEY (idAvaliaco) REFERENCES Avaliacao (idAvaliacao) ON DELETE RESTRICT );";
+	private final String createTableAvaliacaoRefeicao = "CREATE TABLE Avaliacao_Cardapio ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,cardapioCumprido "
+			+ "boolean NOT NULL,id_refeicao INTEGER NOT NULL, data date NOT NULL, idavaliacao INTEGER NOT null, idUsuario  Integer NOT NULL , FOREIGN KEY (idUsuario)"
+			+ " REFERENCES Usuario(idUsuario) ON DELETE RESTRICT,  FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,  FOREIGN KEY (idAvaliacao) REFERENCES Avaliacao (idAvaliacao) ON DELETE RESTRICT );";
 
-	private final String insertAvaliacao = "insert into Avaliacao values  (Gostei);"
+	/*private final String insertAvaliacao = "insert into Avaliacao values  (Gostei);"
 			+ "insert into Avaliacao values (Desgostei);"
 			+ "insert into Avaliacao values (Indiferente);";
-	
+	*/
 	
 	public SQLiteDAO(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -55,14 +55,13 @@ public class SQLiteDAO extends SQLiteOpenHelper {
 		db.execSQL(createTableUsuario);
 		db.execSQL(createTableAvaliacao);
 		db.execSQL(createTableAvaliacaoRefeicao);
-		db.execSQL(insertAvaliacao);
+		//db.execSQL(insertAvaliacao);
 		//tira isso depois
-		db.execSQL("insert into Usuario values ('jorge', 'jorge');");
-		db.execSQL("insert into Usuario values ('jorge', 'jorge');");
-		db.execSQL("insert into Refeicao values ('almoço','almoço vegetariano');");
-		db.execSQL("insert into Avaliacao values(Gostei);");
-		db.execSQL("insert into Avaliacao values(Desgostei);");
-		db.execSQL("insert into Avaliacao values(Indiferente);");
+		db.execSQL("insert into Usuario (login, senha) values ('jorge', 'jorge');");
+		db.execSQL("insert into Refeicao (nome, tipo) values ('almoço','almoço vegetariano');");
+		db.execSQL("insert into Avaliacao (avaliacao) values('Gostei');");
+		db.execSQL("insert into Avaliacao (avaliacao) values('Desgostei');");
+		db.execSQL("insert into Avaliacao (avaliacao) values('Indiferente');");
 
 	}
 

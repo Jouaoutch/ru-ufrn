@@ -25,7 +25,7 @@ public class ConcreteAvaliacaoDAO extends GenericSQLiteDAO2 implements Avaliacao
 		ContentValues values = new ContentValues(5);
 
 		values.put("cardapioCumprido", avaliacao.isCardapioCumprido());
-		values.put("idRefeicao", avaliacao.getIdRefeicao());
+		values.put("id_refeicao", avaliacao.getIdRefeicao());
 		values.put("data", avaliacao.getDataFormatoAmericano());
 		values.put("idAvaliacao", avaliacao.getIdAvaliacao());
 		values.put("idUsuario", avaliacao.getIdUsuario());
@@ -52,12 +52,12 @@ public class ConcreteAvaliacaoDAO extends GenericSQLiteDAO2 implements Avaliacao
 					"Select * from Avaliacao_Cardapio where idUsuario = '"
 							+ user.getId() + "' and data = '" + data.getYear()
 							+ "-" + data.getMonth() + "-" + data.getDay()
-							+ "' order by idavaliacao" + " asc", null);
+							+ "' order by id" + " asc", null);
 
 			// move o cursor para a ultima avaliação recuperada
 			if (cursor.moveToLast()) {
 				av = new Avaliacao();
-				av.setIdAvaliacao(cursor.getInt(0));
+				av.setId(cursor.getInt(0));
 				av.setCardapioCumprido(cursor.getInt(1) == 1);
 				av.setIdRefeicao(cursor.getInt(2));
 				String dt[] = cursor.getString(3).split("-");
@@ -120,18 +120,18 @@ public class ConcreteAvaliacaoDAO extends GenericSQLiteDAO2 implements Avaliacao
 
 	public void atualizarAvaliação(Avaliacao avaliacao) throws DAOException {
 
-		ContentValues values = new ContentValues(5);
+		ContentValues values = new ContentValues(2);
 
 		values.put("cardapioCumprido", avaliacao.isCardapioCumprido());
 		values.put("idAvaliacao", avaliacao.getIdAvaliacao());
 
 		database = sqLiteDAO.getReadableDatabase();
 
-		String args[] = { String.valueOf(avaliacao.getIdAvaliacao()),
+		String args[] = { String.valueOf(avaliacao.getId()),
 				String.valueOf(avaliacao.getIdUsuario()) };
 		
 		database.update("Avaliacao_Cardapio", values,
-				"IdAvaliacao = ? and idUsuario = ?", args);
+				"id = ? and idUsuario = ?", args);
 
 		database.close();
 

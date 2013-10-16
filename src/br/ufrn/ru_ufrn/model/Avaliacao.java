@@ -6,11 +6,18 @@ import org.apache.http.impl.cookie.DateUtils;
 
 public class Avaliacao {
 
+	private Integer id;
 	private Boolean cardapioCumprido;
 	private Date data;
 	private Integer idAvaliacao;
 	private Integer idRefeicao;
 	private Long idUsuario;
+	
+	public Avaliacao(){
+		this.id = -1;
+		this.idRefeicao = -1;
+		this.idUsuario = -1L;
+	}
 
 
 	public static final String ALMOCO_CARNIVORO = "almoço carnívoro",
@@ -19,6 +26,15 @@ public class Avaliacao {
 			JANTAR_VEGETARIANO = "jantar vegetariano";
 
 	
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Long getIdUsuario() {
 		return idUsuario;

@@ -22,9 +22,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +39,9 @@ public class Avaliar extends Activity {
 	private AvaliacaoController avController = new AvaliacaoController(this);
 	private DialogAtualizarAvaliacao dialogAtualizarAvaliacao = new DialogAtualizarAvaliacao(
 			this);
-
+	private static final int cafe = 0, almocoCarnivoro = 1, AlmocoVegetariano = 2,
+			jantarCarnivoro = 3, jantarVegetariano = 4;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,6 +51,10 @@ public class Avaliar extends Activity {
 		addListenerOnButton();
 
 		verificarAvaliacoes();
+		
+		Spinner spinner = (Spinner) findViewById(R.id.spinner_refeicoes);
+		spinner.setOnItemSelectedListener(new SpinnerActivity());
+		
 	}
 
 	// verifica se ja exixte uma valiação pra refeição em questão, se exixtir
@@ -58,17 +67,17 @@ public class Avaliar extends Activity {
 
 		try {
 			avaliacao = avController.getUltimaAvaliacao(user,
-					new Date());
+					new Date(System.currentTimeMillis()));
 			if (avaliacao != null) {
 
 				RadioButton ns = null;
-				if (avaliacao.getIdAvaliacao() == 1) {
+				if (avaliacao.getIdAvaliacao() == 2) {
 					ns = (RadioButton) findViewById(R.id.rbDesgostei);
 					ns.setChecked(true);
-				} else if (avaliacao.getIdAvaliacao() == 0) {
+				} else if (avaliacao.getIdAvaliacao() == 1) {
 					ns = (RadioButton) findViewById(R.id.rbGostei);
 					ns.setChecked(true);
-				} else if (avaliacao.getIdAvaliacao() == 2) {
+				} else if (avaliacao.getIdAvaliacao() == 3) {
 					ns = (RadioButton) findViewById(R.id.rbIndiferente);
 					ns.setChecked(true);
 				}
@@ -147,7 +156,7 @@ public class Avaliar extends Activity {
 
 		case R.id.rbGostei:
 			if (checked) {
-				idAvaliacao = 0;
+				idAvaliacao = 1;
 			}
 
 			break;
@@ -159,7 +168,7 @@ public class Avaliar extends Activity {
 
 		case R.id.rbIndiferente:
 			if (checked) {
-				idAvaliacao = 1;
+				idAvaliacao = 3;
 			}
 			break;
 
@@ -202,10 +211,11 @@ public class Avaliar extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
-					if (avaliacao.getIdAvaliacao() == null) {
+					if (avaliacao.getIdAvaliacao() == -1) {
 						realizarAvaliacao();
 					} else {
 						atualizarAvaliacao();
+						System.out.println(avaliacao.getIdAvaliacao()+"  "+avaliacao.getId()+"  "+avaliacao.getCardapioCumprido()); 
 					}
 
 				} catch (ValorNuloException e) {
@@ -233,7 +243,8 @@ public class Avaliar extends Activity {
 			private void realizarAvaliacao() throws ValorNuloException,
 					ValorInvalidoException, DAOException {
 
-				avaliacao.setData(new Date());
+				avaliacao.setData(new Date(System.currentTimeMillis()));
+				System.out.println(avaliacao.getDataFormatoAmericano());
 				avaliacao.setIdUsuario(1L);
 				avaliacao.setIdRefeicao(0);
 
@@ -313,5 +324,28 @@ public class Avaliar extends Activity {
 			return builder.create();
 		}
 
+	}
+	
+	private void setarDados(int refeicao){
+		//aqui setar os alimentos da refeicao quando o dao estiver pronto
+	}
+	
+	private class SpinnerActivity extends Activity implements OnItemSelectedListener {
+	  
+
+		
+
+		@Override
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			setarDados(arg2);
+			
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 }

@@ -50,9 +50,10 @@ public class Cardapio extends Activity {
 
 		//daofact = new SQLiteDAOFactory();
 		//cardapiodao = new CardapioSQLiteDAO(this);
-		GenericSQLiteDAO dao = new GenericSQLiteDAO(this);
-		dao.bootstrap();
-		//new MockCardapio().mock(cardapiodao, new Date());
+		CardapioDAO cardapiodao = new CardapioSQLiteDAO(this);
+		//dao.bootstrap();
+		java.sql.Date data = new java.sql.Date(new Date().getTime());
+		MockCardapio.mock(cardapiodao, data);
 		//cardapio = cardapiodao.findByData(new Date());
 
 		// setCardapioItens();

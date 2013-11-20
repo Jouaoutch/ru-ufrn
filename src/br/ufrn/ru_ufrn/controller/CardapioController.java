@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import br.ufrn.ru_ufrn.MockCardapio;
 import br.ufrn.ru_ufrn.model.Cardapio;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
@@ -78,8 +79,12 @@ public class CardapioController {
 		temp = MockCardapio.mock(cardapiodao, data);
 		cardapioSemana.add(temp);		
 		
+		
+		
+		
 		//cardapioSemana.add(cardapiodao.findByData(data));
 		return cardapioSemana;
+		
 		
 		
 	}

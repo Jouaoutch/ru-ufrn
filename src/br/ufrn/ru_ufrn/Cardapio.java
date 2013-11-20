@@ -9,6 +9,7 @@ import java.sql.Date;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.Menu;
@@ -62,6 +63,7 @@ public class Cardapio extends Activity {
 
 		List<br.ufrn.ru_ufrn.model.Cardapio> temp = controller
 				.getCardapiosDaSemana();
+		marcarDataDoCardapio();
 
 		if (temp == null) {
 			Toast.makeText(this, "Sem cardapios da semana!", Toast.LENGTH_LONG)
@@ -95,6 +97,15 @@ public class Cardapio extends Activity {
 
 				});
 
+	}
+
+	private void marcarDataDoCardapio() {
+		SharedPreferences settings = getPreferences(Activity.MODE_PRIVATE);
+		
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString("data-cardapio", new java.sql.Date(System.currentTimeMillis()).toString());
+		editor.commit();
+		
 	}
 
 	private void createData(br.ufrn.ru_ufrn.model.Cardapio cardapio) {

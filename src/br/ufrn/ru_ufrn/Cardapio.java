@@ -4,12 +4,14 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.sql.Date;
 
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.Menu;
@@ -74,6 +76,8 @@ public class Cardapio extends Activity {
 				cardapioDaSemana.put(semana[i], temp.get(i));
 			}
 		}
+		
+		
 
 		Spinner spinnerDiasSemana = (Spinner) findViewById(R.id.spinner_dias_semana);
 		spinnerDiasSemana
@@ -96,7 +100,33 @@ public class Cardapio extends Activity {
 					}
 
 				});
+		
+		loadCardapioDoDia();
+		
 
+	}
+
+	private void loadCardapioDoDia() {
+		AsyncTask<Void, Void, br.ufrn.ru_ufrn.model.Cardapio> at = new AsyncTask<Void, Void, br.ufrn.ru_ufrn.model.Cardapio>() {
+			
+			@Override
+			protected br.ufrn.ru_ufrn.model.Cardapio doInBackground(Void... params) {
+				
+				return controller.getCardapioDoDia();
+			}
+		};
+		
+		
+		TextView textViewTest = (TextView) findViewById(R.id.textView_teste_webservice);
+		try {
+			textViewTest.setText(at.get().getAlmocoCarnivoro().getNome());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+
+		
 	}
 
 	private void marcarDataDoCardapio() {

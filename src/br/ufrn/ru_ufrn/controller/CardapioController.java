@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import br.ufrn.ru_ufrn.MockCardapio;
+import br.ufrn.ru_ufrn.controller.service.CardapioClientService;
 import br.ufrn.ru_ufrn.model.Cardapio;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 import br.ufrn.ru_ufrn.model.dao.CardapioSQLiteDAO;
@@ -22,6 +23,7 @@ public class CardapioController {
 	CardapioDAO cardapiodao ;
 	private int conexao_internet;
 	private Context context;
+	CardapioClientService cardCliServ ;
 	
 	public CardapioController(Context context) {
 		this.context = context;
@@ -34,6 +36,7 @@ public class CardapioController {
 		
 		switch(conexao_internet){
 			case ON:
+				
 				break;
 			case OFF:
 				output = prepararCardapioDaSemana();
@@ -44,6 +47,13 @@ public class CardapioController {
 				break;
 		}
 		
+		return output;
+	}
+	
+	public Cardapio getCardapioDoDia(){
+		Cardapio output = null;
+		cardCliServ = new CardapioClientService();
+		output = cardCliServ.getCardapioDoDia();
 		return output;
 	}
 

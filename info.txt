@@ -13,3 +13,6 @@ http://helpdev.com.br/2011/06/13/android-exibindo-uma-imagem-da-web-em-um-imagev
 
 # SQLite SQL Syntax
 http://www.sqlite.org/lang.html
+
+# Referência de implemetação do cliente para webservice restful
+http://sombriks.wordpress.com/2011/12/15/cliente-android-consumindo-rest-de-forma-transparente-facil-e-rapida/

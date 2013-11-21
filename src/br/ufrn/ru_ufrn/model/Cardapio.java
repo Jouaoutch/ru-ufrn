@@ -2,9 +2,11 @@ package br.ufrn.ru_ufrn.model;
 
 
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
+import org.simpleframework.xml.Default;
+@Default(required=false)
 public class Cardapio extends Model{
 	
 	public static final int CAFE_DA_MANHA = 0;

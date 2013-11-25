@@ -39,11 +39,13 @@ public class CardapioClientService {
 		
 	}
 	
-	public Cardapio getCardapioDoDiaGson(){
+	
+	
+	public Cardapio getCardapioDaData(String date){
 		Cardapio cardapio = null;
 		URL serverAddress;
 		try {
-			serverAddress = new URL(ServiceResources.URL_RESOURCE+"/cardapio/hoje");
+			serverAddress = new URL(ServiceResources.URL_RESOURCE+"/cardapio/data/"+date);
 			HttpURLConnection connection = (HttpURLConnection) serverAddress.openConnection(); 
 			connection.setRequestMethod("GET"); 
 			connection.connect(); 

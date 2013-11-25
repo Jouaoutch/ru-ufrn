@@ -63,23 +63,28 @@ public class Cardapio extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cardapio);
 
-		//setCurrentDateOnView();
+		setCurrentDateOnView();
 		addListenerOnButton();
 
 		controller = new CardapioController(this);
 		String[] semana = { "Segunda", "Terça", "Quarta", "Quinta", "Sexta" };
 
-		List<br.ufrn.ru_ufrn.model.Cardapio> temp = controller
-				.getCardapiosDaSemana();
+		List<br.ufrn.ru_ufrn.model.Cardapio> cardapiosDaSemanaTemp = loadCardapiosDaSemana();
 		marcarDataDoCardapio();
 
-		if (temp == null) {
+		if (cardapiosDaSemanaTemp == null) {
 			Toast.makeText(this, "Sem cardapios da semana!", Toast.LENGTH_LONG)
 					.show();
 		} else {
-
+				
 			for (int i = 0; i < semana.length; i++) {
-				cardapioDaSemana.put(semana[i], temp.get(i));
+				if(validaCardapio(cardapiosDaSemanaTemp.get(i))){
+					cardapioDaSemana.put(semana[i], cardapiosDaSemanaTemp.get(i));
+				}
+				else {
+					Toast.makeText(this, "Existem algum cardapio invalido!", Toast.LENGTH_LONG)
+					.show();
+				}
 			}
 		}
 
@@ -105,8 +110,44 @@ public class Cardapio extends Activity {
 
 				});
 
-		loadCardapioDoDia();
+		//loadCardapioDoDia();
 
+	}
+
+	private boolean validaCardapio(br.ufrn.ru_ufrn.model.Cardapio cardapio2) {
+		boolean retorno = true;
+		
+		if(cardapio2.getCafeDaManha() == null || 
+				cardapio2.getAlmocoCarnivoro() == null || 
+				cardapio2.getAlmocoVegetariano() == null ||
+				cardapio2.getJantaCarnivora() == null ||
+				cardapio2.getJantaVegetariana() == null){
+			retorno = false;
+		}
+		
+		return retorno;
+	}
+
+	private List<br.ufrn.ru_ufrn.model.Cardapio> loadCardapiosDaSemana() {
+		List<br.ufrn.ru_ufrn.model.Cardapio> output = null;
+		AsyncTask<Void, Void, List<br.ufrn.ru_ufrn.model.Cardapio>> at = new AsyncTask<Void, Void, List<br.ufrn.ru_ufrn.model.Cardapio>>() {
+
+			@Override
+			protected List<br.ufrn.ru_ufrn.model.Cardapio> doInBackground(
+					Void... params) {
+				return controller.getCardapiosDaSemana();
+			}
+		};
+
+		at.execute();
+		try {
+			output = at.get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		return output;
 	}
 
 	private void loadCardapioDoDia() {

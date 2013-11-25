@@ -61,6 +61,9 @@ public class Comentar extends Activity {
 		}
 
 	}
+	
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

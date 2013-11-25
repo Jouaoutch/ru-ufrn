@@ -2,11 +2,9 @@ package br.ufrn.ru_ufrn.model;
 
 
 
-import java.util.Date;
-import java.util.List;
 
-import org.simpleframework.xml.Default;
-@Default(required=false)
+
+
 public class Cardapio extends Model{
 	
 	public static final int CAFE_DA_MANHA = 0;
@@ -17,7 +15,7 @@ public class Cardapio extends Model{
 	
 	
 	
-	private Date data;
+	private String data;
 	private Refeicao cafeDaManha;
 	private Refeicao almocoVegetariano;
 	private Refeicao almocoCarnivoro;
@@ -28,7 +26,7 @@ public class Cardapio extends Model{
 	
 	}
 	
-	public Cardapio(Date data, Refeicao cafeDaManha,
+	public Cardapio(String data, Refeicao cafeDaManha,
 			Refeicao almocoVegetariano, Refeicao almocoCarnivoro,
 			Refeicao jantaVegetariana, Refeicao jantaCarnivora) {
 		super();
@@ -82,11 +80,11 @@ public class Cardapio extends Model{
 		this.jantaCarnivora = jantaCarnivora;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 	

@@ -14,10 +14,10 @@ import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 
 public class MockCardapio {
 
-	private static Date data;
+	private static String data;
 	private static int cont = 0;
 
-	public static Cardapio mock(CardapioDAO cmd, Date dt) {
+	public static Cardapio mock(CardapioDAO cmd, String dt) {
 		data = dt;
 		cont++;
 		if (cont % 2 == 0) {

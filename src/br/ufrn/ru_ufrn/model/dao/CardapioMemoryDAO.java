@@ -11,7 +11,7 @@ public class CardapioMemoryDAO extends MemoryDAO<Cardapio, Integer> implements
 	@Override
 	public Cardapio findByData(Date data) {
 		Cardapio result = null;
-		for (Iterator<Cardapio> iterator = getDb().iterator(); iterator.hasNext();) {
+		/*for (Iterator<Cardapio> iterator = getDb().iterator(); iterator.hasNext();) {
 			Cardapio c = iterator.next();
 			//TODO melhorar o jeito comparar as datas
 			if(c.getData().getDay() == data.getDay() &&
@@ -21,7 +21,7 @@ public class CardapioMemoryDAO extends MemoryDAO<Cardapio, Integer> implements
 				
 				result = c;
 			}			
-		}
+		}*/
 		return result;
 	}
 	

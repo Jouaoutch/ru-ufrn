@@ -53,7 +53,7 @@ public class CardapioController {
 	public Cardapio getCardapioDoDia(){
 		Cardapio output = null;
 		cardCliServ = new CardapioClientService();
-		output = cardCliServ.getCardapioDoDia();
+		output = cardCliServ.getCardapioDoDiaGson();
 		return output;
 	}
 
@@ -61,32 +61,32 @@ public class CardapioController {
 		List<Cardapio> cardapioSemana = new ArrayList<Cardapio>();
 		cardapiodao = new CardapioSQLiteDAO(this.context);
 		java.sql.Date data = new java.sql.Date(new Date(2013,10,14).getTime());		
-		Cardapio temp = MockCardapio.mock(cardapiodao, data);
+		Cardapio temp = MockCardapio.mock(cardapiodao, data.toString());
 		//cardapioSemana.add(cardapiodao.findByData(data));
 		cardapioSemana.add(temp);		
 		
 		data = new java.sql.Date(new Date(2013,10,14).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data);
+		temp = MockCardapio.mock(cardapiodao, data.toString());
 		//cardapioSemana.add(cardapiodao.findByData(data));
 		cardapioSemana.add(temp);		
 		
 		data = new java.sql.Date(new Date(2013,10,15).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data);
+		temp = MockCardapio.mock(cardapiodao, data.toString());
 		cardapioSemana.add(temp);		
 		
 		//cardapioSemana.add(cardapiodao.findByData(data));
 		data = new java.sql.Date(new Date(2013,10,16).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data);
+		temp = MockCardapio.mock(cardapiodao, data.toString());
 		cardapioSemana.add(temp);		
 		
 		//cardapioSemana.add(cardapiodao.findByData(data));
 		data = new java.sql.Date(new Date(2013,10,17).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data);
+		temp = MockCardapio.mock(cardapiodao, data.toString());
 		cardapioSemana.add(temp);		
 		
 		//cardapioSemana.add(cardapiodao.findByData(data));
 		data = new java.sql.Date(new Date(2013,10,18).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data);
+		temp = MockCardapio.mock(cardapiodao, data.toString());
 		cardapioSemana.add(temp);		
 		
 		

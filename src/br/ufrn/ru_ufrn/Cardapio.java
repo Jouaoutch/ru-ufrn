@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.sql.Date;
 
+import javax.ws.rs.core.MediaType;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -29,6 +34,7 @@ import android.widget.Toast;
 import br.ufrn.ru_ufrn.adapter.CardapioArrayAdapter;
 import br.ufrn.ru_ufrn.adapter.MyExpandableListAdapter;
 import br.ufrn.ru_ufrn.controller.CardapioController;
+import br.ufrn.ru_ufrn.controller.service.ServiceResources;
 import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 import br.ufrn.ru_ufrn.model.dao.CardapioSQLiteDAO;
@@ -57,7 +63,7 @@ public class Cardapio extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cardapio);
 
-		setCurrentDateOnView();
+		//setCurrentDateOnView();
 		addListenerOnButton();
 
 		controller = new CardapioController(this);
@@ -76,8 +82,6 @@ public class Cardapio extends Activity {
 				cardapioDaSemana.put(semana[i], temp.get(i));
 			}
 		}
-		
-		
 
 		Spinner spinnerDiasSemana = (Spinner) findViewById(R.id.spinner_dias_semana);
 		spinnerDiasSemana
@@ -100,42 +104,41 @@ public class Cardapio extends Activity {
 					}
 
 				});
-		
+
 		loadCardapioDoDia();
-		
 
 	}
 
 	private void loadCardapioDoDia() {
 		AsyncTask<Void, Void, br.ufrn.ru_ufrn.model.Cardapio> at = new AsyncTask<Void, Void, br.ufrn.ru_ufrn.model.Cardapio>() {
-			
+
 			@Override
-			protected br.ufrn.ru_ufrn.model.Cardapio doInBackground(Void... params) {
-				
+			protected br.ufrn.ru_ufrn.model.Cardapio doInBackground(
+					Void... params) {
 				return controller.getCardapioDoDia();
 			}
-		};
-		
-		
-		TextView textViewTest = (TextView) findViewById(R.id.textView_teste_webservice);
-		try {
-			textViewTest.setText(at.get().getAlmocoCarnivoro().getNome());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
 
-		
+			@Override
+			protected void onPostExecute(br.ufrn.ru_ufrn.model.Cardapio result) {
+				super.onPostExecute(result);
+				TextView textViewTest = (TextView) findViewById(R.id.textView_data_atual);
+				textViewTest.setText(result.getAlmocoCarnivoro().getNome());
+
+			}
+		};
+
+		at.execute();
+
 	}
 
 	private void marcarDataDoCardapio() {
 		SharedPreferences settings = getPreferences(Activity.MODE_PRIVATE);
-		
+
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putString("data-cardapio", new java.sql.Date(System.currentTimeMillis()).toString());
+		editor.putString("data-cardapio",
+				new java.sql.Date(System.currentTimeMillis()).toString());
 		editor.commit();
-		
+
 	}
 
 	private void createData(br.ufrn.ru_ufrn.model.Cardapio cardapio) {

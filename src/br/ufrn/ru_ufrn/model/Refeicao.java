@@ -8,6 +8,10 @@ public class Refeicao extends Model{
 		private int tipo;
 		public final List<Alimento> itens = new ArrayList<Alimento>();
 		
+		public Refeicao() {
+			// TODO Auto-generated constructor stub
+		}
+		
 		public Refeicao(String nome, int tipo) {
 			super();
 			this.setNome(nome);

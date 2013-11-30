@@ -9,7 +9,7 @@ public class CardapioMemoryDAO extends MemoryDAO<Cardapio, Integer> implements
 		CardapioDAO{
 
 	@Override
-	public Cardapio findByData(Date data) {
+	public Cardapio findByData(String data) {
 		Cardapio result = null;
 		/*for (Iterator<Cardapio> iterator = getDb().iterator(); iterator.hasNext();) {
 			Cardapio c = iterator.next();

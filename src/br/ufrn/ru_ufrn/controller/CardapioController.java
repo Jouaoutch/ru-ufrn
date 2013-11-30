@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.content.SharedPreferences;
 import android.widget.Toast;
 import br.ufrn.ru_ufrn.MockCardapio;
 import br.ufrn.ru_ufrn.controller.service.CardapioClientService;
+import br.ufrn.ru_ufrn.exceptions.DAOException;
 import br.ufrn.ru_ufrn.model.Cardapio;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 import br.ufrn.ru_ufrn.model.dao.CardapioSQLiteDAO;
@@ -126,6 +128,22 @@ public class CardapioController {
 		
 		
 	}
+	
+	public void atualizaBD(List<Cardapio> cardapios){
+		cardapiodao = new CardapioSQLiteDAO(this.context);
+		for (Iterator<Cardapio> iterator = cardapios.iterator(); iterator.hasNext();) {
+			Cardapio cardapio = iterator.next();
+			try {
+				cardapiodao.update(cardapio);
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
+	
 
 	private void testConexao() {
 		

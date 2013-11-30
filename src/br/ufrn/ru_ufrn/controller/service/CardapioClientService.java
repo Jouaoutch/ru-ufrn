@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.RuntimeDelegate;
@@ -73,6 +74,12 @@ public class CardapioClientService {
 		return cardapio;
 		
 	}
+
+	public List<Cardapio> getCardapiosDaSemana() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	
 }

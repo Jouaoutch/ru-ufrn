@@ -53,6 +53,12 @@ public class CardapioSQLiteDAO implements CardapioDAO {
 		if(cardapio != null){
 			if(cardapio.getId() == null){
 				gSqLiteDAO = new GenericSQLiteDAO(this.context);
+				String date = cardapio.getData();
+				Cardapio temp = findByData(date);
+				if(temp != null){
+					delete(temp);
+				}
+				
 				ContentValues values = new ContentValues(1);
 				values.put("data", cardapio.getData().toString());
 				SQLiteEntity sqLiteEntity = new SQLiteEntity();
@@ -106,12 +112,19 @@ public class CardapioSQLiteDAO implements CardapioDAO {
 
 	@Override
 	public void delete(Cardapio entity) throws DAOException {
-		// TODO Auto-generated method stub
-
+		
+		if(gSqLiteDAO == null){
+			gSqLiteDAO = new GenericSQLiteDAO(this.context);
+		}
+		SQLiteEntity sqle = new SQLiteEntity();
+		sqle.setIdSaved(entity.getId());
+		sqle.setTableName("Cardapio");
+		gSqLiteDAO.delete(sqle);
+		
 	}
 
 	@Override
-	public Cardapio findByData(Date data) {
+	public Cardapio findByData(String data) {
 		// TODO Auto-generated method stub
 		return null;
 	}

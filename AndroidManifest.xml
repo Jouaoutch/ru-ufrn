@@ -78,6 +78,7 @@
             android:name="br.ufrn.ru_ufrn.Cardapio"
             android:label="@string/title_activity_cardapio" >
         </activity>
+        <service android:name="br.ufrn.ru_ufrn.services.ServiceUpdateDB" ></service>
     </application>
 
 </manifest>

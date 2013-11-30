@@ -29,8 +29,8 @@ public class GenericSQLiteDAO extends SQLiteOpenHelper {
 			+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,	"
 			+ "id_refeicao INTEGER NOT NULL,	"
 			+ "id_alimento INTEGER NOT NULL,	"
-			+ " FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT,	"
-			+ " FOREIGN KEY (id_alimento) REFERENCES Alimento(id) ON DELETE RESTRICT );";
+			+ " FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE CASCADE,	"
+			+ " FOREIGN KEY (id_alimento) REFERENCES Alimento(id) ON DELETE CASCADE );";
 
 	public final String createTableCardapio = "CREATE TABLE Cardapio ("
 			+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -40,8 +40,8 @@ public class GenericSQLiteDAO extends SQLiteOpenHelper {
 			+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,	"
 			+ "id_cardapio INTEGER NOT NULL,	"
 			+ "id_refeicao INTEGER NOT NULL, 	"
-			+ " FOREIGN KEY (id_cardapio) REFERENCES Cardapio(id) ON DELETE RESTRICT, "
-			+ " FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT );";
+			+ " FOREIGN KEY (id_cardapio) REFERENCES Cardapio(id) ON DELETE CASCADE, "
+			+ " FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE CASCADE );";
 
 	public final String createTableUsuario = "Create table Usuario("
 			+ "id_usuario INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -58,12 +58,12 @@ public class GenericSQLiteDAO extends SQLiteOpenHelper {
 			+ "id_usuario  Integer NOT NULL,"
 			+ "data date NOT NULL, "
 			+ "cardapio_cumprido boolean NOT NULL,"
-			+ "FOREIGN KEY (id_usuario) REFERENCES Usuario(id) ON DELETE RESTRICT, "
-			+ "FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE RESTRICT, "
-			+ "FOREIGN KEY (id_avaliacao) REFERENCES Avaliacao (id) ON DELETE RESTRICT );";
+			+ "FOREIGN KEY (id_usuario) REFERENCES Usuario(id) ON DELETE CASCADE, "
+			+ "FOREIGN KEY (id_refeicao) REFERENCES Refeicao(id) ON DELETE CASCADE, "
+			+ "FOREIGN KEY (id_avaliacao) REFERENCES Avaliacao (id) ON DELETE CASCADE );";
 	
 	private final String createTableComentario = "Create table Comentario (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,id_usuario NOT NULL,comentario Integer not null,image TEXT,FOREIGN KEY (id_usuario) "
-			+ "REFERENCES Usuario(id_usuario) ON DELETE RESTRICT);";
+			+ "REFERENCES Usuario(id_usuario) ON DELETE CASCADE);";
 
 	public final String insertAvaliacao = "insert into Avaliacao (avaliacao) values  ('Gostei');"
 			+ "insert into Avaliacao  (avaliacao) values ('Desgostei');"
@@ -169,6 +169,25 @@ public class GenericSQLiteDAO extends SQLiteOpenHelper {
 			database.close();
 		}
 
+	}
+
+	public void delete(SQLiteEntity entity) throws DAOException {
+		try {
+			database = this.getWritableDatabase();
+			long row = database.delete(entity.getTableName(), " id = "+entity.getIdSaved(), null);
+			if (row == 0) {
+				throw new DAOException("Erro ao deletar na tabela "
+						+ entity.getTableName());
+			}
+		} catch (Exception e) {
+			throw new DAOException(e.getMessage());
+		}
+
+		finally {
+
+			database.close();
+		}
+		
 	}
 
 }

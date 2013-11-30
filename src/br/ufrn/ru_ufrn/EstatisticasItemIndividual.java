@@ -40,7 +40,7 @@ public class EstatisticasItemIndividual extends Activity {
 		cardapiodao = daofact.getCardapioDAO();
 
 		new MockCardapio().mock(cardapiodao);
-		cardapio = cardapiodao.findByData(new Date(System.currentTimeMillis()));
+		cardapio = cardapiodao.findByData(new Date(System.currentTimeMillis()).toString());
 		
 		createData();
 		setCardapioExpadableItens();

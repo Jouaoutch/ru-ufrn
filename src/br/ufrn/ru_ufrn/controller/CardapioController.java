@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
@@ -18,7 +19,9 @@ import br.ufrn.ru_ufrn.exceptions.DAOException;
 import br.ufrn.ru_ufrn.model.Cardapio;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
 import br.ufrn.ru_ufrn.model.dao.CardapioSQLiteDAO;
+import br.ufrn.ru_ufrn.util.CalendarioUtil;
 
+@SuppressLint("ShowToast")
 public class CardapioController {
 	
 	
@@ -38,23 +41,26 @@ public class CardapioController {
 	
 	public List<Cardapio>getCardapiosDaSemana(){
 		
-		testConexao();
-		List<Cardapio> output = null;
+		List<Cardapio> cardapios = null;
 		
-		switch(conexao_internet){
-			case ON:
-				output = prepararCardapioDaSemanaOnLine();
-				break;
-			case OFF:
-				output = prepararCardapioDaSemanaOffLine();
-				break;
-			case LOW:
-				break;
-			default:
-				break;
+		String[] dias_da_semana = CalendarioUtil.getDiasDaSemana();
+		
+		if(cardapiodao == null){
+			cardapiodao = new CardapioSQLiteDAO(this.context);
+		}
+		for (int i = 0; i < dias_da_semana.length; i++) {
+			Cardapio card = null;
+			try {
+				card = cardapiodao.findByData(dias_da_semana[i]);
+			} catch (DAOException e) {
+				Toast.makeText(this.context, "Erro ao recuperar o cardapio do dia "+dias_da_semana[i], Toast.LENGTH_LONG);
+				e.printStackTrace();
+			}
+			cardapios.add(card);
 		}
 		
-		return output;
+		
+		return cardapios;
 	}
 	
 	public Cardapio getCardapioDoDia(){
@@ -64,85 +70,7 @@ public class CardapioController {
 		return output;
 	}
 	
-	private List<Cardapio> prepararCardapioDaSemanaOnLine(){
-		String[] datas = {"2013-11-25", 
-				"2013-11-26",
-				"2013-11-27",
-				"2013-11-28",
-				"2013-11-29"};
-		List<Cardapio> cardapios = new ArrayList<Cardapio>();
-		cardCliServ = new CardapioClientService();
-		for (int i = 0; i < datas.length; i++) {
-			Cardapio temp = cardCliServ.getCardapioDaData(datas[i]);
-			cardapios.add(temp);
-			System.out.println(temp);
-		}
-		
-		
-		
-		return cardapios;
-		
-	} 
-	
 
-	private List<Cardapio> prepararCardapioDaSemanaOffLine() {
-		
-		
-		List<Cardapio> cardapioSemana = new ArrayList<Cardapio>();
-		cardapiodao = new CardapioSQLiteDAO(this.context);
-		java.sql.Date data = new java.sql.Date(new Date(2013,10,14).getTime());		
-		Cardapio temp = MockCardapio.mock(cardapiodao, data.toString());
-		//cardapioSemana.add(cardapiodao.findByData(data));
-		cardapioSemana.add(temp);		
-		
-		data = new java.sql.Date(new Date(2013,10,14).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data.toString());
-		//cardapioSemana.add(cardapiodao.findByData(data));
-		cardapioSemana.add(temp);		
-		
-		data = new java.sql.Date(new Date(2013,10,15).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data.toString());
-		cardapioSemana.add(temp);		
-		
-		//cardapioSemana.add(cardapiodao.findByData(data));
-		data = new java.sql.Date(new Date(2013,10,16).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data.toString());
-		cardapioSemana.add(temp);		
-		
-		//cardapioSemana.add(cardapiodao.findByData(data));
-		data = new java.sql.Date(new Date(2013,10,17).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data.toString());
-		cardapioSemana.add(temp);		
-		
-		//cardapioSemana.add(cardapiodao.findByData(data));
-		data = new java.sql.Date(new Date(2013,10,18).getTime());		
-		temp = MockCardapio.mock(cardapiodao, data.toString());
-		cardapioSemana.add(temp);		
-		
-		
-		
-		
-		//cardapioSemana.add(cardapiodao.findByData(data));
-		return cardapioSemana;
-		
-		
-		
-	}
-	
-	public void atualizaBD(List<Cardapio> cardapios){
-		cardapiodao = new CardapioSQLiteDAO(this.context);
-		for (Iterator<Cardapio> iterator = cardapios.iterator(); iterator.hasNext();) {
-			Cardapio cardapio = iterator.next();
-			try {
-				cardapiodao.update(cardapio);
-			} catch (DAOException e) {
-				e.printStackTrace();
-			}
-			
-		}
-		
-	}
-	
 	
 
 	private void testConexao() {

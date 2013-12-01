@@ -15,14 +15,16 @@ import android.widget.Toast;
 public class GenericSQLiteDAO extends SQLiteOpenHelper {
 
 	public static final String DATABASE_NAME = "RU_UFRN";
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 2;
 	public final String createTableRefeicao = "CREATE TABLE Refeicao ("
 			+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-			+ "nome TEXT NOT NULL," + "tipo TEXT NOT NULL);";
+			+ "nome TEXT NOT NULL," 
+			+ "tipo TEXT NOT NULL);";
 
 	public final String createTableAlimento = "CREATE TABLE Alimento ("
 			+ "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-			+ "nome TEXT NOT NULL," + "descricao TEXT NOT NULL,"
+			+ "nome TEXT NOT NULL," 
+			+ "descricao TEXT NOT NULL,"
 			+ "imagem TEXT);";
 
 	public final String createTableRefeicao_Alimento = "CREATE TABLE Refeicao_Alimento (	"
@@ -91,7 +93,7 @@ public class GenericSQLiteDAO extends SQLiteOpenHelper {
 		db.execSQL(createTableComentario);
 		db.execSQL(insertAvaliacao);
 		db.execSQL("insert into Usuario (login, senha) values ('jorge', 'jorge');");
-		db.execSQL("insert into Refeicao (nome, tipo) values ('almoço','almoço vegetariano');");
+		//db.execSQL("insert into Refeicao (nome, tipo) values ('almoço','almoço vegetariano');");
 		//db.execSQL("insert into Refeicao (nome, tipo) values ('almoço','almoço vegetariano');");
 		Toast.makeText(context, "no OnCreate do GenericSQLiteDAO",
 				Toast.LENGTH_LONG).show();
@@ -100,6 +102,7 @@ public class GenericSQLiteDAO extends SQLiteOpenHelper {
 	public void bootstrap() {
 		database = this.getWritableDatabase();
 		database.close();
+		
 	}
 
 	@Override

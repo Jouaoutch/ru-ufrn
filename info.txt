@@ -16,3 +16,15 @@ http://www.sqlite.org/lang.html
 
 # Referência de implemetação do cliente para webservice restful
 http://sombriks.wordpress.com/2011/12/15/cliente-android-consumindo-rest-de-forma-transparente-facil-e-rapida/
+
+# comando sqlite3 para apagar as tabelas
+
+drop table Alimento;
+drop table Refeicao;
+drop table Refeicao_Alimento;
+drop table Cardapio;
+drop table Cardapio_Refeicao;
+drop table Usuario;
+drop table Avaliacao;
+drop table Avaliacao_Cardapio;
+drop table Comentario;

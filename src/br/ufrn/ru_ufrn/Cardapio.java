@@ -15,6 +15,8 @@ import com.sun.jersey.api.client.WebResource;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.Service;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,6 +44,7 @@ import br.ufrn.ru_ufrn.model.dao.DAOFactory;
 import br.ufrn.ru_ufrn.model.dao.GenericSQLiteDAO;
 import br.ufrn.ru_ufrn.model.dao.MemoryDAOFactory;
 import br.ufrn.ru_ufrn.model.dao.SQLiteDAOFactory;
+import br.ufrn.ru_ufrn.services.ServiceUpdateDB;
 
 public class Cardapio extends Activity {
 
@@ -54,39 +57,18 @@ public class Cardapio extends Activity {
 	private ListView listview;
 	private SparseArray<Refeicao> groups = new SparseArray<Refeicao>();
 	private br.ufrn.ru_ufrn.model.Cardapio cardapio;
-	private RatingBar ratingBar;
 	private final HashMap<String, br.ufrn.ru_ufrn.model.Cardapio> cardapioDaSemana = new HashMap<String, br.ufrn.ru_ufrn.model.Cardapio>();
 	private CardapioController controller;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cardapio);
-
+		Intent i = new Intent(this,ServiceUpdateDB.class);
+		this.startService(i);
+		
 		setCurrentDateOnView();
 		addListenerOnButton();
-
-		controller = new CardapioController(this);
-		String[] semana = { "Segunda", "Terça", "Quarta", "Quinta", "Sexta" };
-
-		List<br.ufrn.ru_ufrn.model.Cardapio> cardapiosDaSemanaTemp = loadCardapiosDaSemana();
-		marcarDataDoCardapio();
-
-		if (cardapiosDaSemanaTemp == null) {
-			Toast.makeText(this, "Sem cardapios da semana!", Toast.LENGTH_LONG)
-					.show();
-		} else {
-				
-			for (int i = 0; i < semana.length; i++) {
-				if(validaCardapio(cardapiosDaSemanaTemp.get(i))){
-					cardapioDaSemana.put(semana[i], cardapiosDaSemanaTemp.get(i));
-				}
-				else {
-					Toast.makeText(this, "Existem algum cardapio invalido!", Toast.LENGTH_LONG)
-					.show();
-				}
-			}
-		}
+		loadCardapios();
 
 		Spinner spinnerDiasSemana = (Spinner) findViewById(R.id.spinner_dias_semana);
 		spinnerDiasSemana
@@ -110,8 +92,31 @@ public class Cardapio extends Activity {
 
 				});
 
-		//loadCardapioDoDia();
 
+	}
+
+	private void loadCardapios() {
+		controller = new CardapioController(this);
+		String[] semana = { "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado" };
+
+		List<br.ufrn.ru_ufrn.model.Cardapio> cardapiosDaSemanaTemp = loadCardapiosDaSemana();
+		marcarDataDoCardapio();
+
+		if (cardapiosDaSemanaTemp == null) {
+			Toast.makeText(this, "Sem cardapios da semana!", Toast.LENGTH_LONG)
+					.show();
+		} else {
+				
+			for (int i = 0; i < semana.length; i++) {
+				if(validaCardapio(cardapiosDaSemanaTemp.get(i))){
+					cardapioDaSemana.put(semana[i], cardapiosDaSemanaTemp.get(i));
+				}
+				else {
+					Toast.makeText(this, "Existem algum cardapio invalido!", Toast.LENGTH_LONG)
+					.show();
+				}
+			}
+		}
 	}
 
 	private boolean validaCardapio(br.ufrn.ru_ufrn.model.Cardapio cardapio2) {
@@ -150,27 +155,7 @@ public class Cardapio extends Activity {
 		return output;
 	}
 
-	private void loadCardapioDoDia() {
-		AsyncTask<Void, Void, br.ufrn.ru_ufrn.model.Cardapio> at = new AsyncTask<Void, Void, br.ufrn.ru_ufrn.model.Cardapio>() {
 
-			@Override
-			protected br.ufrn.ru_ufrn.model.Cardapio doInBackground(
-					Void... params) {
-				return controller.getCardapioDoDia();
-			}
-
-			@Override
-			protected void onPostExecute(br.ufrn.ru_ufrn.model.Cardapio result) {
-				super.onPostExecute(result);
-				TextView textViewTest = (TextView) findViewById(R.id.textView_data_atual);
-				textViewTest.setText(result.getAlmocoCarnivoro().getNome());
-
-			}
-		};
-
-		at.execute();
-
-	}
 
 	private void marcarDataDoCardapio() {
 		SharedPreferences settings = getPreferences(Activity.MODE_PRIVATE);

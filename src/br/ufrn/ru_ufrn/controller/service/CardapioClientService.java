@@ -7,6 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -17,9 +23,12 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.spi.service.ServiceFinder;
 
+import android.annotation.SuppressLint;
 import br.ufrn.ru_ufrn.model.Cardapio;
+import br.ufrn.ru_ufrn.util.CalendarioUtil;
  
 
+@SuppressLint("SimpleDateFormat")
 public class CardapioClientService {
 	
 	
@@ -75,9 +84,52 @@ public class CardapioClientService {
 		
 	}
 
+	@SuppressWarnings("deprecation")
 	public List<Cardapio> getCardapiosDaSemana() {
-		// TODO Auto-generated method stub
-		return null;
+		String[] dias_da_semana = CalendarioUtil.getDiasDaSemana();
+		List<Cardapio> lista = new ArrayList<Cardapio>();
+		
+		for (int i = 0; i < dias_da_semana.length; i++) {
+			Cardapio temp = getCardapioDaData(dias_da_semana[i]);
+			lista.add(temp);
+		}
+		return lista;
+	}
+	
+	
+
+
+
+	public String cardapioAlterado(String date) {
+		URL serverAddress;
+		String result = "";
+		try {
+			serverAddress = new URL(ServiceResources.URL_RESOURCE+"/cardapio/alterado/"+date);
+			HttpURLConnection connection = (HttpURLConnection) serverAddress.openConnection(); 
+			connection.setRequestMethod("GET"); 
+			connection.connect(); 
+			BufferedReader rd = new BufferedReader(new InputStreamReader( connection.getInputStream())); 			
+			StringBuilder sb = new StringBuilder();
+			String temp = rd.readLine();
+			while(temp != null){
+				sb.append(temp);
+				temp = rd.readLine();
+			}
+			Gson gson = new Gson();			
+			result = gson.fromJson(sb.toString(), String.class);
+			
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result; 
 	}
 	
 	

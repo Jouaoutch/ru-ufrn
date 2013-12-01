@@ -5,6 +5,7 @@ import java.sql.Date;
 import br.ufrn.ru_ufrn.adapter.CardapioArrayAdapter;
 import br.ufrn.ru_ufrn.adapter.MyExpandableListAdapter;
 import br.ufrn.ru_ufrn.adapter.MyExpandableListAdapter2;
+import br.ufrn.ru_ufrn.exceptions.DAOException;
 import br.ufrn.ru_ufrn.model.Cardapio;
 import br.ufrn.ru_ufrn.model.Refeicao;
 import br.ufrn.ru_ufrn.model.dao.CardapioDAO;
@@ -40,7 +41,12 @@ public class EstatisticasItemIndividual extends Activity {
 		cardapiodao = daofact.getCardapioDAO();
 
 		new MockCardapio().mock(cardapiodao);
-		cardapio = cardapiodao.findByData(new Date(System.currentTimeMillis()).toString());
+		try {
+			cardapio = cardapiodao.findByData(new Date(System.currentTimeMillis()).toString());
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		createData();
 		setCardapioExpadableItens();

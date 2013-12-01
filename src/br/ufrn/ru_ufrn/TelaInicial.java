@@ -1,5 +1,6 @@
 package br.ufrn.ru_ufrn;
 
+import br.ufrn.ru_ufrn.model.dao.GenericSQLiteDAO;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,7 +24,15 @@ public class TelaInicial extends Activity implements OnClickListener {
 		btnEstatisticas.setOnClickListener(this);
 		Button btnComentarios = (Button) findViewById(R.id.button_comentarios);
 		btnComentarios.setOnClickListener(this);
+		
+		createDB();
 
+	}
+
+	private void createDB() {
+		GenericSQLiteDAO g = new GenericSQLiteDAO(this);
+		g.bootstrap();
+		
 	}
 
 	@Override

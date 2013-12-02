@@ -7,12 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -21,7 +16,6 @@ import javax.ws.rs.ext.RuntimeDelegate;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.spi.service.ServiceFinder;
 
 import android.annotation.SuppressLint;
 import br.ufrn.ru_ufrn.model.Cardapio;
@@ -68,6 +62,8 @@ public class CardapioClientService {
 			}
 			Gson gson = new Gson();			
 			cardapio = gson.fromJson(sb.toString(), Cardapio.class);
+			System.out.println("chamada realizada as: "+new java.util.Date(System.currentTimeMillis()));
+			//System.out.println(gson.toJson(cardapio));
 			
 			
 		} catch (MalformedURLException e) {
@@ -84,7 +80,6 @@ public class CardapioClientService {
 		
 	}
 
-	@SuppressWarnings("deprecation")
 	public List<Cardapio> getCardapiosDaSemana() {
 		String[] dias_da_semana = CalendarioUtil.getDiasDaSemana();
 		List<Cardapio> lista = new ArrayList<Cardapio>();

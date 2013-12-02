@@ -1,5 +1,6 @@
 package br.ufrn.ru_ufrn;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -51,25 +52,34 @@ public class Cardapio extends Activity {
 	private TextView dataAtual;
 	private TextView cardapioItens;
 	private Button mudarData;
-	private DAOFactory daofact;
-	private CardapioDAO cardapiodao;
 	private ArrayAdapter<String> adapter;
 	private ListView listview;
 	private SparseArray<Refeicao> groups = new SparseArray<Refeicao>();
-	private br.ufrn.ru_ufrn.model.Cardapio cardapio;
 	private final HashMap<String, br.ufrn.ru_ufrn.model.Cardapio> cardapioDaSemana = new HashMap<String, br.ufrn.ru_ufrn.model.Cardapio>();
 	private CardapioController controller;
+	private Intent intentServiceUpdateDB;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cardapio);
-		Intent i = new Intent(this,ServiceUpdateDB.class);
-		this.startService(i);
-		
+		initServiceUpdateDB();
 		setCurrentDateOnView();
 		addListenerOnButton();
 		loadCardapios();
+		addListenerOnSpinner();
 
+
+	}
+	
+	@Override
+	protected void onStop() {
+		this.stopService(intentServiceUpdateDB);
+		super.onStop();
+		
+		
+	}
+
+	private void addListenerOnSpinner() {
 		Spinner spinnerDiasSemana = (Spinner) findViewById(R.id.spinner_dias_semana);
 		spinnerDiasSemana
 				.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -91,12 +101,15 @@ public class Cardapio extends Activity {
 					}
 
 				});
+	}
 
-
+	private void initServiceUpdateDB() {
+		intentServiceUpdateDB = new Intent(this,ServiceUpdateDB.class);
+		this.startService(intentServiceUpdateDB);
 	}
 
 	private void loadCardapios() {
-		controller = new CardapioController(this);
+		
 		String[] semana = { "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado" };
 
 		List<br.ufrn.ru_ufrn.model.Cardapio> cardapiosDaSemanaTemp = loadCardapiosDaSemana();
@@ -134,7 +147,10 @@ public class Cardapio extends Activity {
 	}
 
 	private List<br.ufrn.ru_ufrn.model.Cardapio> loadCardapiosDaSemana() {
-		List<br.ufrn.ru_ufrn.model.Cardapio> output = null;
+		List<br.ufrn.ru_ufrn.model.Cardapio> cardapios = null;
+		if (controller == null) {
+			controller = new CardapioController(this);
+		}
 		AsyncTask<Void, Void, List<br.ufrn.ru_ufrn.model.Cardapio>> at = new AsyncTask<Void, Void, List<br.ufrn.ru_ufrn.model.Cardapio>>() {
 
 			@Override
@@ -146,13 +162,13 @@ public class Cardapio extends Activity {
 
 		at.execute();
 		try {
-			output = at.get();
+			cardapios = at.get();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-		return output;
+		return cardapios;
 	}
 
 
@@ -230,7 +246,7 @@ public class Cardapio extends Activity {
 		final Calendar c = Calendar.getInstance();
 
 		dataAtual = (TextView) findViewById(R.id.textView_data_atual);
-		dataAtual.setText(c.getTime().toString());
+		dataAtual.setText(new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()));
 
 	}
 

@@ -1,7 +1,5 @@
 package br.ufrn.ru_ufrn.model.dao;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -82,6 +80,10 @@ public class CardapioSQLiteDAO implements CardapioDAO {
 				refeicaoSQLiteDAO.save(cardapio.getJantaCarnivora());
 
 				relate(cardapio, cardapio.getCafeDaManha());
+				relate(cardapio, cardapio.getAlmocoVegetariano());
+				relate(cardapio, cardapio.getAlmocoCarnivoro());
+				relate(cardapio, cardapio.getJantaCarnivora());
+				relate(cardapio, cardapio.getJantaVegetariana());
 
 			} else {
 				this.update(cardapio);
@@ -123,125 +125,129 @@ public class CardapioSQLiteDAO implements CardapioDAO {
 	}
 
 	@Override
-	public Cardapio findByData(String data) throws DAOException {
+	public synchronized Cardapio findByData(String data) throws DAOException {
 		Cardapio card = null;
-
-		// recuperando o cardapio
-		String sqlQuery = "SELECT * FROM Cardapio WHERE data = '" + data
-				+ "' ;";
-		SQLiteEntity entity = new SQLiteEntity();
-		entity.setQuery(sqlQuery);
 
 		if (gSqLiteDAO == null) {
 			gSqLiteDAO = new GenericSQLiteDAO(this.context);
 		}
-		gSqLiteDAO.query(entity);
 
-		Cursor cursor = entity.getResult();
+		// recuperando o cardapio
+		String sqlQuerySelectCardapio = "SELECT * FROM Cardapio WHERE data = ? ";
+		String[] sqlArgsCardapio = { data };
+		SQLiteEntity entityCard = new SQLiteEntity();
+		entityCard.setQuery(sqlQuerySelectCardapio);
+		entityCard.setArgs(sqlArgsCardapio);
 
-		if (cursor != null) {
+		gSqLiteDAO.query(entityCard);
 
-			if (cursor.moveToFirst()) {
-				do {
-					int id_card = Integer.parseInt(cursor.getString(cursor
-							.getColumnIndex("id")));
-					Integer idCard = new Integer(id_card);
-					card.setId(idCard);
-					card.setData(cursor.getString(cursor.getColumnIndex("data")));
-				} while (cursor.moveToNext());
-			}
-			cursor.close();
+		Cursor cursorCard = entityCard.getResult();
 
-			// recuperando as refeicoes do cardapio
-			String sqlQuery2 = "SELECT r.id, r.nome, r.tipo "
+		//provavelmente existe o cardapio
+
+		if (cursorCard.moveToFirst()) {
+			do {
+				int id_card = getIdFromCursor(cursorCard);
+				Integer idCard = new Integer(id_card);
+				card = new Cardapio();
+				card.setId(idCard);
+				card.setData(cursorCard.getString(cursorCard
+						.getColumnIndex("data")));
+			} while (cursorCard.moveToNext());
+		}
+		// recuperando as refeicoes do cardapio
+		if (card != null) {// se existia o cardapio
+			SQLiteEntity entityRef = new SQLiteEntity();
+			String sqlQuerySelectRefeicoesDoCardapio = "SELECT r.id, r.nome, r.tipo "
 					+ "FROM Refeicao r INNER JOIN Cardapio_Refeicao cr "
-					+ "ON r.id = cr.id_refeicao " + "INNER JOIN Cardapio c "
-					+ "ON cr.id_cardapio = c.id AND c.id = " + card.getId()
-					+ " ;";
-			entity.setQuery(sqlQuery2);
-			gSqLiteDAO.query(entity);
+					+ "ON r.id = cr.id_refeicao "
+					+ "INNER JOIN Cardapio c "
+					+ "ON cr.id_cardapio = c.id AND c.id = " + card.getId();
+			entityRef.setQuery(sqlQuerySelectRefeicoesDoCardapio);
+			entityRef.setArgs(null);
+			gSqLiteDAO.query(entityRef);
 
-			Cursor cursor2 = entity.getResult();
+			Cursor cursorRef = entityRef.getResult();
 
-			if (cursor2 != null) {// possivelmente existem refeicoes
-				if (cursor2.moveToFirst()) {
-					do {
-						int id_ref = Integer.parseInt(cursor2.getString(cursor2
-								.getColumnIndex("id")));
-						Integer idRef = new Integer(id_ref);
-						Refeicao ref = new Refeicao();
-						ref.setId(idRef);
-						ref.setNome(cursor2.getString(cursor2
-								.getColumnIndex("nome")));
-						ref.setTipo(Integer.parseInt(cursor2.getString(cursor2
-								.getColumnIndex("tipo"))));
+			// possivelmente existem refeicoes
+			if (cursorRef.moveToFirst()) {
+				do {
+					Refeicao ref = new Refeicao();
+					int id_ref = getIdFromCursor(cursorRef);
+					Integer idRef = new Integer(id_ref);
 
-						switch (ref.getTipo()) {
-						case Cardapio.CAFE_DA_MANHA:
-							card.setCafeDaManha(ref);
-							break;
-						case Cardapio.ALMOCO_CARNIVORO:
-							card.setAlmocoCarnivoro(ref);
-							break;
-						case Cardapio.ALMOCO_VEGETARIANO:
-							card.setAlmocoVegetariano(ref);
-							break;
-						case Cardapio.JANTA_CARNIVORA:
-							card.setJantaCarnivora(ref);
-							break;
-						case Cardapio.JANTA_VEGETARIANA:
-							card.setJantaVegetariana(ref);
-							break;
-						default:
-							break;
-						}
+					ref.setId(idRef);
+					ref.setNome(cursorRef.getString(cursorRef
+							.getColumnIndex("nome")));
+					ref.setTipo(Integer.parseInt(cursorRef.getString(cursorRef
+							.getColumnIndex("tipo"))));
 
-						// recuperando os alimentos da refeicao
+					switch (ref.getTipo()) {
+					case Cardapio.CAFE_DA_MANHA:
+						card.setCafeDaManha(ref);
+						break;
+					case Cardapio.ALMOCO_CARNIVORO:
+						card.setAlmocoCarnivoro(ref);
+						break;
+					case Cardapio.ALMOCO_VEGETARIANO:
+						card.setAlmocoVegetariano(ref);
+						break;
+					case Cardapio.JANTA_CARNIVORA:
+						card.setJantaCarnivora(ref);
+						break;
+					case Cardapio.JANTA_VEGETARIANA:
+						card.setJantaVegetariana(ref);
+						break;
+					default:
+						break;
+					}
 
-						String sqlQuery3 = "SELECT a.id, a.nome, a.descricao, a.imagem "
-								+ "FROM Alimento a INNER JOIN Refeicao_Alimento ra "
-								+ "ON a.id = ra.id_alimento "
-								+ "INNER JOIN Refeicao r "
-								+ "ON ra.id_refeicao = r.id AND r.id = "
-								+ ref.getId() + " ;";
+					// recuperando os alimentos da refeicao
 
-						entity.setQuery(sqlQuery3);
-						gSqLiteDAO.query(entity);
+					SQLiteEntity entityAli = new SQLiteEntity();
 
-						Cursor cursor3 = entity.getResult();
+					String sqlQuerySelectAlimentosDaRefeicao = "SELECT a.id, a.nome, a.descricao, a.imagem "
+							+ "FROM Alimento a INNER JOIN Refeicao_Alimento ra "
+							+ "ON a.id = ra.id_alimento "
+							+ "INNER JOIN Refeicao r "
+							+ "ON ra.id_refeicao = r.id AND r.id = "
+							+ ref.getId();
 
-						if (cursor3 != null) {// provavelmente existem alimentos
-							if (cursor3.moveToFirst()) {
-								do {
-									int id_ali = Integer.parseInt(cursor3
-											.getString(cursor3
-													.getColumnIndex("id")));
-									Integer idAli = new Integer(id_ali);
-									Alimento ali = new Alimento();
-									ali.setId(idAli);
-									ali.setNome(cursor3.getString(cursor3
-											.getColumnIndex("nome")));
-									ali.setDescricao(cursor3.getString(cursor3
-											.getColumnIndex("descricao")));
-									ali.setImagem(cursor3.getString(cursor3
-											.getColumnIndex("imagem")));
+					entityAli.setQuery(sqlQuerySelectAlimentosDaRefeicao);
+					entityAli.setArgs(null);
+					gSqLiteDAO.query(entityAli);
 
-									ref.adicionarAlimento(ali);
-								} while (cursor3.moveToNext());
-							}
-						}
+					Cursor cursorAli = entityAli.getResult();
 
-					} while (cursor2.moveToNext());
-				}
-				cursor2.close();
+					// provavelmente existem alimentos
+					if (cursorAli.moveToFirst()) {
+						do {
+							int id_ali = getIdFromCursor(cursorAli);
+							Integer idAli = new Integer(id_ali);
+							Alimento ali = new Alimento();
+							ali.setId(idAli);
+							ali.setNome(cursorAli.getString(cursorAli
+									.getColumnIndex("nome")));
+							ali.setDescricao(cursorAli.getString(cursorAli
+									.getColumnIndex("descricao")));
+							ali.setImagem(cursorAli.getString(cursorAli
+									.getColumnIndex("imagem")));
 
+							ref.adicionarAlimento(ali);
+						} while (cursorAli.moveToNext());
+					}
+				} while (cursorRef.moveToNext());
 			}
-			 
-			
-			
 		}
 
+		// }
+
 		return card;
+	}
+
+	private int getIdFromCursor(Cursor cursorCard) {
+		return Integer.parseInt(cursorCard.getString(cursorCard
+				.getColumnIndex("id")));
 	}
 
 	/*

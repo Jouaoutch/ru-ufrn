@@ -41,7 +41,7 @@ public class CardapioController {
 	
 	public List<Cardapio>getCardapiosDaSemana(){
 		
-		List<Cardapio> cardapios = null;
+		List<Cardapio> cardapios = new ArrayList<Cardapio>();
 		
 		String[] dias_da_semana = CalendarioUtil.getDiasDaSemana();
 		
@@ -53,6 +53,7 @@ public class CardapioController {
 			try {
 				card = cardapiodao.findByData(dias_da_semana[i]);
 			} catch (DAOException e) {
+				System.out.println("Erro DB: Erro ao recuperar o cardapio do dia "+dias_da_semana[i]);
 				Toast.makeText(this.context, "Erro ao recuperar o cardapio do dia "+dias_da_semana[i], Toast.LENGTH_LONG);
 				e.printStackTrace();
 			}
@@ -64,10 +65,10 @@ public class CardapioController {
 	}
 	
 	public Cardapio getCardapioDoDia(){
-		Cardapio output = null;
+		Cardapio cardapio = null;
 		cardCliServ = new CardapioClientService();
-		output = cardCliServ.getCardapioDaData(new java.sql.Date(System.currentTimeMillis()).toString());
-		return output;
+		cardapio = cardCliServ.getCardapioDaData(new java.sql.Date(System.currentTimeMillis()).toString());
+		return cardapio;
 	}
 	
 

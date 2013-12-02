@@ -1,6 +1,6 @@
 package br.ufrn.ru_ufrn;
 
-import br.ufrn.ru_ufrn.model.dao.GenericSQLiteDAO;
+import br.ufrn.ru_ufrn.model.dao.SQLiteCreateDB;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -30,9 +30,7 @@ public class TelaInicial extends Activity implements OnClickListener {
 	}
 
 	private void createDB() {
-		GenericSQLiteDAO g = new GenericSQLiteDAO(this);
-		g.bootstrap();
-		
+		//new SQLiteCreateDB(this).start();		
 	}
 
 	@Override

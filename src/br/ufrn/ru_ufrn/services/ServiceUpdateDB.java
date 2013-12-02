@@ -36,9 +36,14 @@ public class ServiceUpdateDB extends Service {
 	private void updateDB(){
 		
 		List<Cardapio> cardapios = null;
-		cardapios = loadCardapiosDaSemana();
 		
-		if (cardapioDaSemanaAlterado()) {
+		//if (cardapioDaSemanaAlterado()) {
+
+		System.out.println("UpdateDB: entrou no updateDB");
+
+		cardapios = loadCardapiosDaSemana();
+		if (cardapios != null) {
+			System.out.println("Cardapios da semana recuperados do servidor com sucesso!");
 
 			CardapioSQLiteDAO dao = new CardapioSQLiteDAO(this);
 			for (Iterator<Cardapio> iterator = cardapios.iterator(); iterator
@@ -47,7 +52,8 @@ public class ServiceUpdateDB extends Service {
 				try {
 					dao.save(cardapio);
 				} catch (DAOException e) {
-					Toast.makeText(this,
+					Toast.makeText(
+							this,
 							"Erro ao salvar/atualizar o cardapio do dia "
 									+ cardapio.getData() + "!",
 							Toast.LENGTH_LONG).show();
@@ -55,6 +61,13 @@ public class ServiceUpdateDB extends Service {
 				}
 			}
 		}
+	/*	} else{
+			Toast.makeText(this,
+					"Cardapio não foi alterado!",
+					Toast.LENGTH_LONG).show();
+	
+		}
+		*/
 		
 	}
 	
@@ -106,7 +119,7 @@ public class ServiceUpdateDB extends Service {
 	
 
 	private List<Cardapio> loadCardapiosDaSemana() {
-		List<Cardapio> output = null;
+		List<Cardapio> cardapios = null;
 		AsyncTask<Void, Void, List<Cardapio>> at = new AsyncTask<Void, Void, List<Cardapio>>() {
 
 			@Override
@@ -121,13 +134,13 @@ public class ServiceUpdateDB extends Service {
 
 		at.execute();
 		try {
-			output = at.get();
+			cardapios = at.get();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-		return output;
+		return cardapios;
 	}
 	
 	

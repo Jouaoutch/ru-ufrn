@@ -112,6 +112,7 @@ public class CardapioClientService {
 			}
 			Gson gson = new Gson();			
 			result = gson.fromJson(sb.toString(), String.class);
+			System.out.println("cliente do webservice: Cardapio alterado: "+sb.toString());
 			
 			
 		} catch (MalformedURLException e) {

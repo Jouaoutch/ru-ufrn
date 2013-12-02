@@ -1,5 +1,6 @@
 package br.ufrn.ru_ufrn.services;
 
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -37,13 +38,15 @@ public class ServiceUpdateDB extends Service {
 		
 		List<Cardapio> cardapios = null;
 		
-		//if (cardapioDaSemanaAlterado()) {
+		if (cardapioDaSemanaAlterado()) {
 
 		System.out.println("UpdateDB: entrou no updateDB");
 
 		cardapios = loadCardapiosDaSemana();
 		if (cardapios != null) {
 			System.out.println("Cardapios da semana recuperados do servidor com sucesso!");
+			Toast.makeText(this,"Cardapios da semana recuperados do servidor com sucesso!",
+					Toast.LENGTH_LONG).show();
 
 			CardapioSQLiteDAO dao = new CardapioSQLiteDAO(this);
 			for (Iterator<Cardapio> iterator = cardapios.iterator(); iterator
@@ -58,16 +61,20 @@ public class ServiceUpdateDB extends Service {
 									+ cardapio.getData() + "!",
 							Toast.LENGTH_LONG).show();
 					e.printStackTrace();
+					System.out.println("Erro ao salvar/atualizar o cardapio do dia "
+							+ cardapio.getData() + "!");
 				}
 			}
 		}
-	/*	} else{
+		} else{
 			Toast.makeText(this,
 					"Cardapio não foi alterado!",
 					Toast.LENGTH_LONG).show();
+			System.out.println("Cardapio não foi alterado!");
+			
 	
 		}
-		*/
+		
 		
 	}
 	
@@ -89,14 +96,18 @@ public class ServiceUpdateDB extends Service {
 				if(cardCliServ == null){
 					cardCliServ = new CardapioClientService();
 				}
-				String data_do_atual_cardapio_da_semana = "";
+				String data_do_atual_cardapio_da_semana = 
+						new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
 				return cardCliServ.cardapioAlterado(data_do_atual_cardapio_da_semana);
 			}
+			
+			
 		};
 		
 		at.execute();
 		try {
 			alterado = at.get();
+			System.out.println("retorno do cardapio alterado: "+alterado);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

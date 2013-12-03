@@ -58,6 +58,7 @@ public class Cardapio extends Activity {
 	private final HashMap<String, br.ufrn.ru_ufrn.model.Cardapio> cardapioDaSemana = new HashMap<String, br.ufrn.ru_ufrn.model.Cardapio>();
 	private CardapioController controller;
 	private Intent intentServiceUpdateDB;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,15 +69,13 @@ public class Cardapio extends Activity {
 		loadCardapios();
 		addListenerOnSpinner();
 
-
 	}
-	
+
 	@Override
 	protected void onStop() {
 		this.stopService(intentServiceUpdateDB);
 		super.onStop();
-		
-		
+
 	}
 
 	private void addListenerOnSpinner() {
@@ -104,13 +103,14 @@ public class Cardapio extends Activity {
 	}
 
 	private void initServiceUpdateDB() {
-		intentServiceUpdateDB = new Intent(this,ServiceUpdateDB.class);
+		intentServiceUpdateDB = new Intent(this, ServiceUpdateDB.class);
 		this.startService(intentServiceUpdateDB);
 	}
 
 	private void loadCardapios() {
-		
-		String[] semana = { "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado" };
+
+		String[] semana = { "Domingo", "Segunda", "Terça", "Quarta", "Quinta",
+				"Sexta", "Sábado" };
 
 		List<br.ufrn.ru_ufrn.model.Cardapio> cardapiosDaSemanaTemp = loadCardapiosDaSemana();
 		marcarDataDoCardapio();
@@ -119,14 +119,14 @@ public class Cardapio extends Activity {
 			Toast.makeText(this, "Sem cardapios da semana!", Toast.LENGTH_LONG)
 					.show();
 		} else {
-				
+
 			for (int i = 0; i < semana.length; i++) {
-				if(validaCardapio(cardapiosDaSemanaTemp.get(i))){
-					cardapioDaSemana.put(semana[i], cardapiosDaSemanaTemp.get(i));
-				}
-				else {
-					Toast.makeText(this, "Existem algum cardapio invalido!", Toast.LENGTH_LONG)
-					.show();
+				if (validaCardapio(cardapiosDaSemanaTemp.get(i))) {
+					cardapioDaSemana.put(semana[i],
+							cardapiosDaSemanaTemp.get(i));
+				} else {
+					Toast.makeText(this, "Existem algum cardapio invalido!",
+							Toast.LENGTH_LONG).show();
 				}
 			}
 		}
@@ -134,15 +134,15 @@ public class Cardapio extends Activity {
 
 	private boolean validaCardapio(br.ufrn.ru_ufrn.model.Cardapio cardapio2) {
 		boolean retorno = true;
-		
-		if(cardapio2.getCafeDaManha() == null || 
-				cardapio2.getAlmocoCarnivoro() == null || 
-				cardapio2.getAlmocoVegetariano() == null ||
-				cardapio2.getJantaCarnivora() == null ||
-				cardapio2.getJantaVegetariana() == null){
+
+		if (cardapio2.getCafeDaManha() == null
+				|| cardapio2.getAlmocoCarnivoro() == null
+				|| cardapio2.getAlmocoVegetariano() == null
+				|| cardapio2.getJantaCarnivora() == null
+				|| cardapio2.getJantaVegetariana() == null) {
 			retorno = false;
 		}
-		
+
 		return retorno;
 	}
 
@@ -170,8 +170,6 @@ public class Cardapio extends Activity {
 		}
 		return cardapios;
 	}
-
-
 
 	private void marcarDataDoCardapio() {
 		SharedPreferences settings = getPreferences(Activity.MODE_PRIVATE);
@@ -246,7 +244,8 @@ public class Cardapio extends Activity {
 		final Calendar c = Calendar.getInstance();
 
 		dataAtual = (TextView) findViewById(R.id.textView_data_atual);
-		dataAtual.setText(new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()));
+		dataAtual
+				.setText(new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()));
 
 	}
 
